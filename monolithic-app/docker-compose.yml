@@ -1,13 +1,7 @@
 version: "3.9"
 services:
-  users:
-    image: users_microservice
-  threads:
-    image: threads_microservice
-  posts:
-    image: posts_microservice
-  comments:
-    image: comments_microservice
+  monolith:
+    image: monolithic-app
   haproxy:
     image: my-haproxy
     ports:
