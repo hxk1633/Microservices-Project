@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  users-api:
+    build: /services/users/
+  threads-api:
+    build: /services/threads/
+  posts-api:
+    build: /services/posts/
+  comments-api:
+    build: /services/comments/
+  api-gateway:
+    image: my-haproxy
+
+networks:
+  default:
+    driver: bridge
