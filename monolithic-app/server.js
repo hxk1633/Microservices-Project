@@ -4,11 +4,11 @@ var app = express();
 
 app.get('/', function(req, res){
     res.send("Ready to receive requests");
- });
+});
 
- app.get('/api/', function(req, res){
+app.get('/api/', function(req, res){
     res.send("API ready to receive requests");
- });
+});
 
 app.get('/api/users', function(req, res){
    res.send(db.users);

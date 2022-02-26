@@ -43,7 +43,7 @@
         "createdBy": 1
       }
     ],
-  
+
     "posts": [
       {
         "id": 1,
@@ -82,7 +82,7 @@
         "user": 1
       }
     ],
-
+    
     "comments": [
       {
         "post": 4,
