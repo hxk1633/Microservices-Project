@@ -1,9 +1,9 @@
 version: "3.9"
 services:
   monolith:
-    image: monolithic-app
+    image: jh7939/monolithic:monolithic-app
   haproxy:
-    image: my-haproxy
+    image: jh7939/monolithic:my-haproxy
     ports:
       - "80:80"
       - "8404:8404"
