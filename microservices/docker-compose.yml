@@ -1,13 +1,13 @@
 version: "3.9"
 services:
   users:
-    image: users_microservice
+    image: jh7939/microservices:users_microservice
   threads:
-    image: threads_microservice
+    image: jh7939/microservices:threads_microservice
   posts:
-    image: posts_microservice
+    image: jh7939/microservices:posts_microservice
   comments:
-    image: comments_microservice
+    image: jh7939/microservices:comments_microservice
   haproxy:
     image: my-haproxy
     ports:
