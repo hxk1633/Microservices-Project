@@ -2,6 +2,12 @@ version: "3.9"
 services:
   monolith:
     image: jh7939/monolithic:monolithic-app
+    healthcheck:
+      test: curl --fail http://localhost || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
   haproxy:
     image: jh7939/monolithic:my-haproxy
     ports:
@@ -9,11 +15,6 @@ services:
       - "8404:8404"
     volumes:
       - "./haproxy:/usr/local/etc/haproxy:ro"
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30
 
 networks:
   default:

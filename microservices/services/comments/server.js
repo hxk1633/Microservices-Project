@@ -10,6 +10,10 @@ app.get('/api/', function(req, res){
     res.send("API ready to receive requests");
 });
 
+app.get('/api/comments', function(req, res){
+    res.send(db.comments);
+});
+
 app.get('/api/comments/by-user/:userId', function(req, res){
     const id = parseInt(req.params.userId);
     res.send(db.comments.find((comment) => comment.user == id));

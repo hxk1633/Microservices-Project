@@ -17,24 +17,6 @@
           "username": "pb",
           "name": "Bonnibel Bubblegum",
           "bio": "Scientist, bearer of candy power, ruler of the candy kingdom"
-        },
-        {
-          "id": 4,
-          "username": "jake",
-          "name": "Jake the Dog",
-          "bio": "Former criminal, now magical dog adventurer, and father"
-        },
-        {
-          "id": 5,
-          "username": "hxk1633",
-          "name": "harrison",
-          "bio": "Coder"
-        },
-        {
-          "id": 6,
-          "username": "yolo",
-          "name": "Yolo Man",
-          "bio": "you only live once"
         }
       ]
 }
