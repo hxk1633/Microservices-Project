@@ -9,12 +9,17 @@ services:
   comments:
     image: jh7939/microservices:comments_microservice
   haproxy:
-    image: my-haproxy
+    image: jh7939/microservices:haproxy
     ports:
       - "80:80"
       - "8404:8404"
     volumes:
       - "./haproxy:/usr/local/etc/haproxy:ro"
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
 
 networks:
   default:
