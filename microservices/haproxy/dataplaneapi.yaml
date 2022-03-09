@@ -1,0 +1,14 @@
+config_version: 2
+name: haproxy1
+mode: single
+status: ""
+dataplaneapi:
+  host: 0.0.0.0
+  port: 5555
+  user:
+  - name: dataplaneapi
+    insecure: true
+    password: mypassword
+  advertised:
+    api_address: ""
+    api_port: 0
