@@ -186,11 +186,10 @@ pipeline{
 
         stage("run on docker"){
             when{
-                // changeset "microservices/services/posts/*"
-                // changeset "microservices/services/comments/*"
-                // changeset "microservices/services/threads/*"
-                // changeset "microservices/services/users/*"
-                changeset "microservices/haproxy/*"
+                changeset "microservices/services/posts/*"
+                changeset "microservices/services/comments/*"
+                changeset "microservices/services/threads/*"
+                changeset "microservices/services/users/*"
             }
             steps{
                 script{
