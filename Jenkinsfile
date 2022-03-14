@@ -186,11 +186,14 @@ pipeline{
 
         stage("run on docker"){
             when{
-                changeset "microservices/services/threads/*" ||   changeset "microservices/services/users/*"
+                anyOf{
+                    changeset "microservices/services/threads/*"
+                    changeset "microservices/services/users/*"
+                    changeset "microservices/services/comments/*"
+                    changeset "microservices/services/posts/*"
+                } 
             }
                         
-                // changeset "microservices/services/threads/*"
-                // changeset "microservices/services/users/*"
             steps{
                 script{
                     dir("./microservices"){
