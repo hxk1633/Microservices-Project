@@ -185,14 +185,14 @@ pipeline{
         }
 
         stage("swap containers"){
-            // when{
-            //     anyOf{
-            //         changeset "microservices/services/threads/*"
-            //         changeset "microservices/services/users/*"
-            //         changeset "microservices/services/comments/*"
-            //         changeset "microservices/services/posts/*"
-            //     } 
-            // }
+            when{
+                anyOf{
+                    changeset "microservices/services/threads/*"
+                    changeset "microservices/services/users/*"
+                    changeset "microservices/services/comments/*"
+                    changeset "microservices/services/posts/*"
+                } 
+            }
                         
             steps{
                 script{
