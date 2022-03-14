@@ -35,6 +35,12 @@
           "thread": 1,
           "text": "I visted Denmark, the happiest country in the world!",
           "user": 1
+        },
+        {
+          "id": 7,
+          "thread": 1,
+          "text": "I visted Denmark, the happiest country in the world!",
+          "user": 1
         }
       ]
 }
