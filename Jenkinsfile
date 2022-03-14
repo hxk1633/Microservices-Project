@@ -186,7 +186,7 @@ pipeline{
 
         stage("run on docker"){
             when{
-                changeset "microservices"
+                changeset "microservices/*"
             }
             steps{
                 script{
