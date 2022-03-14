@@ -191,7 +191,7 @@ pipeline{
                 }
                 script{
                     dir("./microservices"){
-                        sh "echo hello"
+                        sh 'echo "hello"'
                     }
                 }
             }
