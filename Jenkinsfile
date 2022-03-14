@@ -24,7 +24,7 @@ pipeline{
             // }
             steps{
                 script{
-                    dir('./haproxy'){
+                    dir('./microservices/haproxy'){
                         dockerImage = docker.build registry5
                      }
                 }
