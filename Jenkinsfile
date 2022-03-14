@@ -188,7 +188,7 @@ pipeline{
             steps{
                 script{
                     dir("./microservices"){
-                        sh "docker-compose up -d --scale monolith=3"
+                        sh "docker-compose up -d --scale users=4 --scale comments=4 --scale posts=4 --scale threads=4"
                     }
                 }
             }
