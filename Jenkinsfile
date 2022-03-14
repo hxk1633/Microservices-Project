@@ -187,13 +187,50 @@ pipeline{
         stage("swap threads containers"){
             when{
                     changeset "microservices/services/threads/*"  
-                } 
-            }
-                        
+                }           
             steps{
                 script{
                     dir("./microservices"){
                         sh 'bash update_containers.sh threads 4'
+                    }
+                }
+            }
+        }
+
+        stage("swap posts containers"){
+            when{
+                    changeset "microservices/services/posts/*"  
+                }           
+            steps{
+                script{
+                    dir("./microservices"){
+                        sh 'bash update_containers.sh posts 4'
+                    }
+                }
+            }
+        }
+
+        stage("swap users containers"){
+            when{
+                    changeset "microservices/services/users/*"  
+                }           
+            steps{
+                script{
+                    dir("./microservices"){
+                        sh 'bash update_containers.sh users 4'
+                    }
+                }
+            }
+        }
+
+        stage("swap comments containers"){
+            when{
+                    changeset "microservices/services/comments/*"  
+                }           
+            steps{
+                script{
+                    dir("./microservices"){
+                        sh 'bash update_containers.sh comments 4'
                     }
                 }
             }
