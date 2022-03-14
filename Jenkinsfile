@@ -48,7 +48,7 @@ pipeline{
 
         stage('Checkout2'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/jenkinsMicro']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/noddyc/Micro33']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
  
           
             }
@@ -82,7 +82,7 @@ pipeline{
         
         stage('Checkout3'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/jenkinsMicro']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/noddyc/Micro33']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
  
           
             }
@@ -117,7 +117,7 @@ pipeline{
         
         stage('Checkout4'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/jenkinsMicro']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/noddyc/Micro33']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
  
           
             }
@@ -151,7 +151,7 @@ pipeline{
         
         stage('Checkout5'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/jenkinsMicro']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/noddyc/Micro33']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
  
           
             }
