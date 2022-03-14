@@ -184,20 +184,16 @@ pipeline{
             }
         }
 
-        stage("swap containers"){
+        stage("swap threads containers"){
             when{
-                anyOf{
-                    changeset "microservices/services/threads/*"
-                    changeset "microservices/services/users/*"
-                    changeset "microservices/services/comments/*"
-                    changeset "microservices/services/posts/*"
+                    changeset "microservices/services/threads/*"  
                 } 
             }
                         
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'bash update_containers.sh posts 4'
+                        sh 'bash update_containers.sh threads 4'
                     }
                 }
             }
