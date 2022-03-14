@@ -195,7 +195,7 @@ pipeline{
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'ls'
+                        sh 'update_containers.sh'
                     }
                 }
             }
