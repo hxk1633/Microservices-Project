@@ -185,10 +185,10 @@ pipeline{
         }
 
         stage("run on docker"){
+            when{
+                changeset "microservices"
+            }
             steps{
-                when{
-                    changeset "microservices/*"
-                }
                 script{
                     dir("./microservices"){
                         sh 'ls'
