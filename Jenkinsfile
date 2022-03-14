@@ -15,7 +15,7 @@ pipeline{
     stages{
         stage('Checkout'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/jenkinsMicro']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/noddyc/Micro33']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/jenkinsMicro']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
  
           
             }
