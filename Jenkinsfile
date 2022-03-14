@@ -184,20 +184,20 @@ pipeline{
             }
         }
 
-        stage("run on docker"){
-            when{
-                anyOf{
-                    changeset "microservices/services/threads/*"
-                    changeset "microservices/services/users/*"
-                    changeset "microservices/services/comments/*"
-                    changeset "microservices/services/posts/*"
-                } 
-            }
+        stage("swap containers"){
+            // when{
+            //     anyOf{
+            //         changeset "microservices/services/threads/*"
+            //         changeset "microservices/services/users/*"
+            //         changeset "microservices/services/comments/*"
+            //         changeset "microservices/services/posts/*"
+            //     } 
+            // }
                         
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'sh update_containers.sh'
+                        sh 'ls'
                     }
                 }
             }
