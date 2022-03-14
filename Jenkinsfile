@@ -186,10 +186,7 @@ pipeline{
 
         stage("run on docker"){
             when{
-                changeset "microservices/services/threads/*"
-            }
-            when{
-                changeset "microservices/services/users/*"
+                changeset "microservices/services/threads/*" ||   changeset "microservices/services/users/*"
             }
                         
                 // changeset "microservices/services/threads/*"
