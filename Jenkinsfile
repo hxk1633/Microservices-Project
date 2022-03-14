@@ -183,5 +183,15 @@ pipeline{
                 }
             }
         }
+
+        stage("run on docker"){
+            steps{
+                script{
+                    dir("./microservices"){
+                        sh "docker-compose up -d --scale monolith=3"
+                    }
+                }
+            }
+        }
     }
 }
