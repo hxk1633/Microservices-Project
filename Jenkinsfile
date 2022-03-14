@@ -197,7 +197,7 @@ pipeline{
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'sh ./update_containers.sh'
+                        sh 'bash update_containers.sh users 4'
                     }
                 }
             }
