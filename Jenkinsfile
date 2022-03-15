@@ -189,9 +189,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    // dir("./microservices"){
+                    dir("./microservices"){
                         sh 'bash sshlogin.sh threads'
-                    // }
+                    }
                 }
             }
         }
@@ -202,9 +202,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    // dir("./microservices"){
+                    dir("./microservices"){
                         sh 'bash sshlogin.sh posts'
-                    // }
+                    }
                 }
             }
         }
@@ -215,9 +215,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    // dir("./microservices"){
+                    dir("./microservices"){
                         sh 'bash sshlogin.sh users'
-                    // }
+                    }
                 }
             }
         }
@@ -228,9 +228,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    // dir("./microservices"){
+                    dir("./microservices"){
                         sh 'bash sshlogin.sh comments'
-                    // }
+                    }
                 }
             }
         }
