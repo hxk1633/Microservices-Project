@@ -23,8 +23,7 @@ pipeline{
         stage('ssh'){
             steps{
                 script{
-                   sshPublisher(publishers: [sshPublisherDesc(configName: 'remote', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                   sh 'docker ps'
+                   sh 'sshpass -p "2446592ny" ssh jianhe@192.168.2.13'
                 }
             }
         }
