@@ -190,8 +190,8 @@ pipeline{
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'bash sshlogin.sh threads'
-                        // sh 'bash update_containers.sh threads 4'
+                        // sh 'bash sshlogin.sh threads'
+                        sh 'bash update_containers.sh threads 4'
                     }
                 }
             }
@@ -204,8 +204,8 @@ pipeline{
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'bash sshlogin.sh posts'
-                        // sh 'bash update_containers.sh posts 4'
+                        // sh 'bash sshlogin.sh posts'
+                        sh 'bash update_containers.sh posts 4'
                     }
                 }
             }
@@ -218,8 +218,8 @@ pipeline{
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'bash sshlogin.sh users'
-                        // sh 'bash update_containers.sh users 4'
+                        // sh 'bash sshlogin.sh users'
+                        sh 'bash update_containers.sh users 4'
                     }
                 }
             }
@@ -232,8 +232,8 @@ pipeline{
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'bash sshlogin.sh comments'
-                        // sh 'bash update_containers.sh comments 4'
+                        // sh 'bash sshlogin.sh comments'
+                        sh 'bash update_containers.sh comments 4'
                     }
                 }
             }
