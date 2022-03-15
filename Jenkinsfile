@@ -20,15 +20,6 @@ pipeline{
           
             }
         }
-        // stage('ssh'){
-        //    steps{
-        //         script{
-        //             dir("./microservices"){
-        //                 sh 'bash ./sshlogin.sh'
-        //             }
-        //         }
-        //     }
-        // }
         stage('Build Docker image'){
             when {
                 changeset "microservices/services/comments/*"
@@ -198,9 +189,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    dir("./microservices"){
+                    // dir("./microservices"){
                         sh 'bash sshlogin.sh threads'
-                    }
+                    // }
                 }
             }
         }
@@ -211,9 +202,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    dir("./microservices"){
+                    // dir("./microservices"){
                         sh 'bash sshlogin.sh posts'
-                    }
+                    // }
                 }
             }
         }
@@ -224,9 +215,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    dir("./microservices"){
+                    // dir("./microservices"){
                         sh 'bash sshlogin.sh users'
-                    }
+                    // }
                 }
             }
         }
@@ -237,9 +228,9 @@ pipeline{
                 }           
             steps{
                 script{
-                    dir("./microservices"){
+                    // dir("./microservices"){
                         sh 'bash sshlogin.sh comments'
-                    }
+                    // }
                 }
             }
         }
