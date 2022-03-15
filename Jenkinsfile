@@ -24,10 +24,7 @@ pipeline{
             steps{
                 script{
                    sh 'sshpass -p "2446592ny" ssh jianhe@192.168.2.13'
-                   dir('.'){
-                       sh 'ls'
-                   }
-                   sh 'docker ps'
+                   sh 'docker ps -a'
                 }
             }
         }
