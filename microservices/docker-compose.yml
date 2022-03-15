@@ -2,7 +2,6 @@ version: "3.9"
 services:
   users:
     image: jh7939/microservices:users_microservice
-    pull_policy: always
     healthcheck:
       test: curl --fail http://localhost/api/users || exit 1
       interval: 60s
@@ -13,7 +12,6 @@ services:
       - "3100"
   threads:
     image: jh7939/microservices:threads_microservice
-    pull_policy: always
     healthcheck:
       test: curl --fail http://localhost/api/threads || exit 1
       interval: 60s
@@ -24,7 +22,6 @@ services:
       - "3101"
   posts:
     image: jh7939/microservices:posts_microservice
-    pull_policy: always
     healthcheck:
       test: curl --fail http://localhost/api/posts || exit 1
       interval: 60s
@@ -35,7 +32,6 @@ services:
       - "3102"
   comments:
     image: jh7939/microservices:comments_microservice
-    pull_policy: always
     healthcheck:
       test: curl --fail http://localhost/api/comments || exit 1
       interval: 60s
@@ -44,33 +40,50 @@ services:
       timeout: 10s
     ports:
       - "3103"
+
+  # newservice:
+  #   image: newservice_microservice
+  #   healthcheck:
+  #     test: curl --fail http://localhost/api/newservice|| exit 1
+  #     interval: 60s
+  #     retries: 5
+  #     start_period: 20s
+  #     timeout: 10s
+  #   ports:
+  #     - "3104"
+
   haproxy:
-    image: jh7939/microservices:haproxy
-    pull_policy: always
+    image: ldsza/project724:my-haproxy
     ports:
       - "80:80"
       - "8404:8404"
       - "5555:5555"
     volumes:
       - "./haproxy:/usr/local/etc/haproxy:rw"
+    depends_on:
+      - consul
+      - registrator
+    environment:
+      - CONSUL_HOST=consul:8500    
+      
   consul:
-    image: my-consul
+    image: ldsza/project724:my-consul
     container_name: consul
     ports:
       - "8500:8500"
       - "8600:8600/tcp"
       - "8600:8600/udp"
+    
   registrator:
     command: "consul://localhost:8500"
     image: gliderlabs/registrator:latest
     container_name: registrator
     network_mode: host
-    links:
-      - "consul"
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
     depends_on:
       - consul
+
 networks:
   default:
     driver: bridge

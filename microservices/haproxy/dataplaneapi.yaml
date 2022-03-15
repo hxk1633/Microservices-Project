@@ -9,6 +9,6 @@ dataplaneapi:
   - name: dataplaneapi
     insecure: true
     password: mypassword
-  advertised:
-    api_address: ""
-    api_port: 0
+  # advertised:
+  #   api_address: ""
+  #   api_port: 0

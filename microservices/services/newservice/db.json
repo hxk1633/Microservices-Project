@@ -1,0 +1,22 @@
+{
+  "newservice": [
+      {
+        "id": 11,
+        "username": "newservicenewservice",
+        "name": "MD",
+        "bio": "Something something"
+      },
+      {
+        "id": 12,
+        "username": "newservicetest",
+        "name": "FM",
+        "bio": "Something else"
+      },
+      {
+        "id": 13,
+        "username": "testnewservice",
+        "name": "BoB",
+        "bio": "Something"
+      }
+    ]
+}
