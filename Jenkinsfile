@@ -24,7 +24,7 @@ pipeline{
             steps{
                 script{
                     GIT_COMMIT_EMAIL = sh (
-                        script: 'git diff $GIT_COMMIT $GIT_PREVIOUS_SUCCESSFUL_COMMIT',
+                        script: 'git diff --name-only $GIT_COMMIT $GIT_PREVIOUS_SUCCESSFUL_COMMIT',
                         returnStdout: true
                     ).trim()
                     echo "Git committer email: ${GIT_COMMIT_EMAIL}"
