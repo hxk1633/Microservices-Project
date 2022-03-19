@@ -28,6 +28,10 @@ pipeline{
                         script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
                         returnStdout: true).trim()
                     echo "${addedFile}"
+                    findDocker = sh(
+                        script: 'grep "txt" ${addedFile}'
+                    )
+                    echo "${findDocker}"
                 }
 
             }
