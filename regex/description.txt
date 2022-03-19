@@ -1,5 +1,0 @@
-Instructors: Sami Alqadi and Rohan Suresh
-
-CS196 is an entirely student run CS class at the University of Illinois at Urbana-Champaign! It serves as the honors section to CS125: Introduction to Computer Science.
-
-We hope you enjoy our class and wish you best of luck in future classes such as CS173, CS225, CS233, CS241, CS374, and beyond! CS 421
