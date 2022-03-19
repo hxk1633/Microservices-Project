@@ -10,8 +10,6 @@ pipeline{
         registry4 = 'jh7939/microservices:users_microservice'
         registry5 = 'jh7939/microservices:my-haproxy'
         registryCredential = 'dockerhub_id'
-
-        
     }
     
     stages{
@@ -24,11 +22,10 @@ pipeline{
         }
         stage('Detect new folder'){
             steps{
-                GIT_COMMIT_EMAIL = sh (
-                    script: 'git diff  --cached',
-                    returnStdout: true
-                ).trim()
-                echo "${GIT_COMMIT_EMAIL}"
+                script{
+                    GIT_COMMIT_EMAIL =  checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
+                    echo "Git committer email: ${GIT_COMMIT_EMAIL}"
+                }
 
             }
         }
