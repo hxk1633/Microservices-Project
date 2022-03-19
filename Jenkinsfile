@@ -23,7 +23,10 @@ pipeline{
         stage('Detect new folder'){
             steps{
                 script{
-                    GIT_COMMIT_EMAIL = checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
+                    GIT_COMMIT_EMAIL = sh (
+                        script: 'git diff --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
+                        returnStdout: true
+                    ).trim()
                     echo "Git committer email: ${GIT_COMMIT_EMAIL}"
                 }
 
