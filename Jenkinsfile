@@ -10,6 +10,8 @@ pipeline{
         registry4 = 'jh7939/microservices:users_microservice'
         registry5 = 'jh7939/microservices:my-haproxy'
         registryCredential = 'dockerhub_id'
+        addedFile = sh(script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
+                        returnStdout: true).trim()
         
     }
     
@@ -24,13 +26,7 @@ pipeline{
         stage('Detect new folder'){
             steps{
                 script{
-                    addedFile = sh (
-                        script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
-                        returnStdout: true).trim()
-                    echo "${addedFile}"
-                    findDocker = sh(
-                        script: "echo ${addedFile}"
-                    )
+                    echo "${env.addedFile}"
                 }
 
             }
