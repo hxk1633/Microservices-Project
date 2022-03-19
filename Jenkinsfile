@@ -25,9 +25,9 @@ pipeline{
             steps{
                 script{
                     addedFile = sh (
-                        script: 'git diff --diff-filter=A $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
+                        script: 'git diff --diff-filter=A $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
                         returnStdout: true).trim()
-                    echo addedFile
+                    echo "${addedFile}"
                 }
 
             }
