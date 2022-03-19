@@ -10,6 +10,7 @@ pipeline{
         registry4 = 'jh7939/microservices:users_microservice'
         registry5 = 'jh7939/microservices:my-haproxy'
         registryCredential = 'dockerhub_id'
+
     }
     
     stages{
@@ -24,7 +25,7 @@ pipeline{
             steps{
                 script{
                     GIT_COMMIT_EMAIL = sh (
-                        script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
+                        script: 'git diff --diff-filter=A --"*Dockerfile*" $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
                         returnStdout: true).trim()
                     echo "Git committer email: ${GIT_COMMIT_EMAIL}"
                 }
