@@ -10,8 +10,6 @@ pipeline{
         registry4 = 'jh7939/microservices:users_microservice'
         registry5 = 'jh7939/microservices:my-haproxy'
         registryCredential = 'dockerhub_id'
-        addedFile = sh(script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
-                        returnStdout: true).trim()
         
     }
     
@@ -25,9 +23,11 @@ pipeline{
         }
         stage('Detect new folder'){
             steps{
-                script{
-                    echo "${env.addedFile}"
-                }
+                GIT_COMMIT_EMAIL = sh (
+                    script: 'git diff  --cached',
+                    returnStdout: true
+                ).trim()
+                echo "${GIT_COMMIT_EMAIL}"
 
             }
         }
