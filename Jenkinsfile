@@ -22,7 +22,7 @@ pipeline{
         }
         stage('Detect new folder'){
             steps{
-                script{ß
+                script{
                     GIT_COMMIT_EMAIL = sh (
                         script: 'git diff --diff-filter=dm --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
                         returnStdout: true
