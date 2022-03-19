@@ -24,7 +24,7 @@ pipeline{
             steps{
                 script{
                     GIT_COMMIT_EMAIL = sh (
-                        script: 'git status',
+                        script: "checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])",
                         returnStdout: true
                     ).trim()
                     echo "Git committer email: ${GIT_COMMIT_EMAIL}"
