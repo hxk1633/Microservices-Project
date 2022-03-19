@@ -31,7 +31,7 @@ pipeline{
                     echo "${addedFile}"
                     newFile = addedFile
                     findDocker = sh(
-                        script: 'echo ${env.addedFile}'
+                        script: "echo ${env.addedFile}"
                     )
                 }
 
