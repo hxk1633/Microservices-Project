@@ -37,8 +37,9 @@ services:
     ports:
       - "80:80"
       - "8404:8404"
+      - "5555:5555"
     volumes:
-      - "./haproxy:/usr/local/etc/haproxy:ro"
+      - "./haproxy:/usr/local/etc/haproxy:rw"
 
 networks:
   default:
