@@ -25,7 +25,7 @@ pipeline{
                 script{
                     dir("./microservices"){
                         GIT_COMMIT = sh (
-                            script: 'helper.sh',
+                            script: 'bash helper.sh',
                             returnStdout: true
                         ).trim()
                         echo "Git committer email: ${GIT_COMMIT}"
