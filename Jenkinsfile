@@ -33,8 +33,8 @@ pipeline{
                             script: 'bash helper.sh',
                             returnStdout: true
                         ).trim()
-                        def values = "${GIT_COMMIT}".split('\n')
-                        loop_func(values)
+                        def v = "${GIT_COMMIT}".split('\n')
+                        loop_func(v)
 }
                     }
                 }
