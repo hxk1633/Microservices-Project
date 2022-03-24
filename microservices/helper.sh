@@ -4,6 +4,6 @@ lastElement=${text##*-}
 output=""
 while IFS= read -r name 
 do
-  output="$name,$output"
+  output="$name$output"
 done<<<$lastElement
 echo "$lastElement"

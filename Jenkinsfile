@@ -28,7 +28,13 @@ pipeline{
                             script: 'bash helper.sh',
                             returnStdout: true
                         ).trim()
-                        echo "Git committer email: ${GIT_COMMIT}"
+                        def values = "${GIT_COMMIT}".split('\n')
+                        def loop_func(values){
+                            for (int i=0; i<values.size();i++) {
+                                echo "values_${i}"
+                        }
+                        loop_func(values)
+}
                     }
                 }
 
