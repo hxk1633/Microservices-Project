@@ -1,6 +1,6 @@
 def loop_func(values){
     for (int i=0; i<values.size();i++) {
-        echo "values[i]"
+        echo values[i]
         }
 }
 pipeline{
