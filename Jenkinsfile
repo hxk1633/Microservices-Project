@@ -1,7 +1,9 @@
 def loop_func(values){
     for (int i=0; i<values.size();i++) {
-        echo values[i]
-        }
+         stage("test ${values[i]}"){
+             echo "hello"
+         }
+    }
 }
 pipeline{
     
