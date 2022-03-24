@@ -1,6 +1,7 @@
 def loop_func(values){
     for (int i=0; i<values.size();i++) {
         echo "values_${i}"
+        }
 }
 pipeline{
     
@@ -35,7 +36,6 @@ pipeline{
                         ).trim()
                         def v = "${GIT_COMMIT}".split('\n')
                         loop_func(v)
-}
                     }
                 }
 
