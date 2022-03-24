@@ -24,7 +24,7 @@ pipeline{
             steps{
                 script{
                     GIT_COMMIT = sh (
-                        script: 'git diff --dirstat=files,0 HEAD~1 | sed "s/^[ 0-9.]+% //g" --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
+                        script: 'git diff --dirstat=files,0 HEAD~1 --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT',
                         returnStdout: true
                     ).trim()
                     echo "Git committer email: ${GIT_COMMIT}"
