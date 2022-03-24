@@ -1,3 +1,9 @@
 #!/bin/bash
-output="hello"
-echo "$output"
+text=$(<list.txt)
+lastElement=${text##*-}
+output=""
+while IFS= read -r name 
+do
+  output="$name,$output"
+done<<<$lastElement
+echo "$lastElement"
