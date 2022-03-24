@@ -23,11 +23,13 @@ pipeline{
         stage('Detect new folder'){
             steps{
                 script{
-                    GIT_COMMIT = sh (
-                        script: 'helper.sh',
-                        returnStdout: true
-                    ).trim()
-                    echo "Git committer email: ${GIT_COMMIT}"
+                    dir("./microservices"){
+                        GIT_COMMIT = sh (
+                            script: 'helper.sh',
+                            returnStdout: true
+                        ).trim()
+                        echo "Git committer email: ${GIT_COMMIT}"
+                    }
                 }
 
             }
