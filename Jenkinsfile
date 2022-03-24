@@ -1,6 +1,11 @@
+def loop_func(values){
+    for (int i=0; i<values.size();i++) {
+        echo "values_${i}"
+}
 pipeline{
     
     agent any
+    
     
     environment{
         dockerImage = ''
@@ -29,10 +34,6 @@ pipeline{
                             returnStdout: true
                         ).trim()
                         def values = "${GIT_COMMIT}".split('\n')
-                        def loop_func(values){
-                            for (int i=0; i<values.size();i++) {
-                                echo "values_${i}"
-                        }
                         loop_func(values)
 }
                     }
