@@ -1,3 +1,4 @@
 like change
 click change
-onclick newservice
+onclick change
+dblclick newservice
