@@ -3,12 +3,13 @@ def create_stages(values){
         stage("update ${values[i]}"){
             env."name"=values[i].split(' ')[0]
             env."flag"=values[i].split(' ')[1]
-            if(env.flag == "new"){
-                echo "${registry}${name}_microservice"
+            dockerName = echo "${registry}${name}_microservice"
+            dir('./microservices/services/${name}'){
+                    dockerImage = docker.build dockerName
             }
+        }
             // sh 'bash add_newservice.sh ${name}'
             // // sh 'echo ${name}'
-         }
     }
 }
 
