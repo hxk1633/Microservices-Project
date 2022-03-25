@@ -5,8 +5,7 @@ def create_stages(values){
             env."flag"=values[i].split(' ')[1]
             dockerName = "${registry}${name}_microservice"
             dir("./microservices/services/${name}"){
-                sh "ls"
-                    // dockerImage = docker.build dockerName
+                dockerImage = docker.build dockerName
             }
         }
     }
