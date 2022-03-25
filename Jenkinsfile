@@ -11,6 +11,10 @@ def create_stages(values){
                             dockerImage.push()
                 }
             }
+            dir(".."){
+                sh 'pwd'
+            }
+            // sh 'bash add_newservice.sh ${name}'
         }
     }
 }
