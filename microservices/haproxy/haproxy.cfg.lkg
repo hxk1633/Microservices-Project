@@ -1,0 +1,55 @@
+global
+  master-worker
+  stats socket /var/run/api.sock user haproxy group haproxy mode 660 level admin expose-fd listeners
+  log stdout format raw local0 info
+
+defaults
+  mode http
+  timeout client 10s
+  timeout connect 5s
+  timeout server 10s
+  timeout http-request 10s
+  log global
+
+resolvers docker
+    nameserver dns1 127.0.0.11:53
+
+frontend stats
+  bind *:8404
+  stats enable
+  stats uri /
+  stats refresh 10s
+
+frontend api_gateway
+  bind :80
+  acl PATH_users path_beg -i /api/users
+  acl PATH_threads path_beg -i /api/threads
+  acl PATH_posts path_beg -i /api/posts
+  acl PATH_comments path_beg -i /api/comments
+  use_backend be_users if PATH_users
+  use_backend be_threads if PATH_threads
+  use_backend be_posts if PATH_posts
+  use_backend be_comments if PATH_comments
+
+userlist haproxy-dataplaneapi
+  user admin insecure-password mypassword
+  
+program api
+  command /usr/bin/dataplaneapi --host 0.0.0.0 --port 5555 --haproxy-bin /usr/sbin/haproxy --config-file=/usr/local/etc/haproxy/haproxy.cfg --reload-cmd "kill -SIGUSR2 1" --reload-delay 5 --userlist haproxy-dataplaneapi
+  no option start-on-reload
+
+backend be_users
+  balance roundrobin
+  server-template microservices-users- 20 users:3000 check resolvers docker init-addr libc,none
+
+backend be_threads
+  balance roundrobin
+  server-template microservices-threads- 20 threads:3000 check resolvers docker init-addr libc,none
+
+backend be_posts
+  balance roundrobin
+  server-template microservices-posts- 20 posts:3000 check resolvers docker init-addr libc,none
+
+backend be_comments
+  balance roundrobin
+  server-template microservices-comments- 20 comments:3000 check resolvers docker init-addr libc,none
