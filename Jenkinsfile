@@ -11,8 +11,9 @@ def create_stages(values){
                 //             dockerImage.push()
                 // }
             }
-            dir("~"){
+            dir("./microservices/services"){
                 sh 'pwd'
+                sh "ls"
             }
             // sh 'bash add_newservice.sh ${name}'
         }
