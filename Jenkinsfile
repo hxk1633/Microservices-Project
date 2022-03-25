@@ -1,12 +1,11 @@
 def loop_func(values){
     for (int i=0; i<values.size();i++) {
-        //  stage("test ${values[i]}"){
-        //      echo "hello"
-        //  }
-        name=values[i].split(' ')[0]
-        flag=values[i].split(' ')[1]
-        echo "$name"
-        echo "$flag"
+        stage("test ${values[i]}"){
+            name=values[i].split(' ')[0]
+            flag=values[i].split(' ')[1]
+            sh 'hello.sh name'
+            sh 'hello.sh name'
+         }
 
     }
 }
