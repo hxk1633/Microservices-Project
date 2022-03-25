@@ -12,10 +12,10 @@ def create_stages(values){
                 }
             }
             sh 'bash add_newservice.sh ${name}'
-            dir("./microservices"){
-                sh "docker pull ${registry}${name}_microservice"
-                sh "bash update_containers.sh ${name} 4"
-            }
+            // dir("./microservices"){
+            //     sh "docker pull ${registry}${name}_microservice"
+            //     sh "bash update_containers.sh ${name} 4"
+            // }
         }
     }
 }
