@@ -1,9 +1,9 @@
 def loop_func(values){
     for (int i=0; i<values.size();i++) {
         stage("test ${values[i]}"){
-            env."name_${i}"=values[i].split(' ')[0]
-            env."flag_${i}"=values[i].split(' ')[1]
-            sh 'echo ${env.name_${i}}'
+            env."name"=values[i].split(' ')[0]
+            env."flag"=values[i].split(' ')[1]
+            sh 'echo ${env.name}'
          }
 
     }
