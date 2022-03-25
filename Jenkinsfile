@@ -1,6 +1,6 @@
 def create_stages(values){
     for (int i=0; i<values.size();i++) {
-        stage("test ${values[i]}"){
+        stage("update ${values[i]}"){
             env."name"=values[i].split(' ')[0]
             env."flag"=values[i].split(' ')[1]
             // sh 'bash add_newservice.sh ${name}'
