@@ -3,11 +3,11 @@ def create_stages(values){
         stage("update ${values[i]}"){
             env."name"=values[i].split(' ')[0]
             env."flag"=values[i].split(' ')[1]
-            dockerName = echo "${registry}${name}_microservice"
-            echo "./microservices/services/${name}"
-            // dir("./microservices/services/${name}"){
-            //         dockerImage = docker.build dockerName
-            // }
+            dockerName = "${registry}${name}_microservice"
+            dir("./microservices/services/${name}"){
+                sh "ls"
+                    // dockerImage = docker.build dockerName
+            }
         }
     }
 }
