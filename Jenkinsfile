@@ -11,7 +11,7 @@ def create_stages(values){
                 //             dockerImage.push()
                 // }
             }
-            dir("./microservices/services"){
+            dir("./microservices"){
                 sh 'pwd'
                 sh "ls"
             }
