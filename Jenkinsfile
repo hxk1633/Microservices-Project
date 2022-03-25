@@ -3,8 +3,8 @@ def create_stages(values){
         stage("update ${values[i]}"){
             env."name"=values[i].split(' ')[0]
             env."flag"=values[i].split(' ')[1]
-            // sh 'bash add_newservice.sh ${name}'
-            sh 'echo ${name}'
+            sh 'bash add_newservice.sh ${name}'
+            // sh 'echo ${name}'
          }
     }
 }
