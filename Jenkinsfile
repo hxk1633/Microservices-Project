@@ -7,6 +7,9 @@ def create_stages(values){
             checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
             dir("./microservices/services/${name}"){
                 dockerImage = docker.build dockerName
+                docker.withRegistry('', registryCredential){
+                            dockerImage.push()
+                }
             }
         }
     }
