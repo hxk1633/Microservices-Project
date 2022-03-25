@@ -3,11 +3,12 @@ def loop_func(values){
         stage("test ${values[i]}"){
             env."name"=values[i].split(' ')[0]
             env."flag"=values[i].split(' ')[1]
-            sh 'bash hello.sh ${name}'
+            sh 'bash add_newservice.sh ${name}'
          }
 
     }
 }
+
 pipeline{
     
     agent any
