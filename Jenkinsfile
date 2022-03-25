@@ -4,7 +4,6 @@ def loop_func(values){
             name=values[i].split(' ')[0]
             flag=values[i].split(' ')[1]
             sh 'bash hello.sh $name'
-            sh 'bash hello.sh $flag'
          }
 
     }
