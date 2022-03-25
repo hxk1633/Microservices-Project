@@ -3,7 +3,7 @@ def loop_func(values){
         stage("test ${values[i]}"){
             def name=values[i].split(' ')[0]
             def flag=values[i].split(' ')[1]
-            sh 'bash hello.sh $name'
+            sh 'echo $name'
          }
 
     }
