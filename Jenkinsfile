@@ -3,8 +3,11 @@ def create_stages(values){
         stage("update ${values[i]}"){
             env."name"=values[i].split(' ')[0]
             env."flag"=values[i].split(' ')[1]
-            sh 'bash add_newservice.sh ${name}'
-            // sh 'echo ${name}'
+            if(env.flag == "new"){
+                echo "$registry$name"
+            }
+            // sh 'bash add_newservice.sh ${name}'
+            // // sh 'echo ${name}'
          }
     }
 }
@@ -16,6 +19,7 @@ pipeline{
     
     environment{
         dockerImage = ''
+        registry = 'jh7939/microservices:'
         registry1 = 'jh7939/microservices:comments_microservice' 
         registry2 = 'jh7939/microservices:posts_microservice' 
         registry3 = 'jh7939/microservices:threads_microservice'
