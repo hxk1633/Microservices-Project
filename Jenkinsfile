@@ -4,8 +4,9 @@ def create_stages(values){
             env."name"=values[i].split(' ')[0]
             env."flag"=values[i].split(' ')[1]
             dockerName = "${registry}${name}_microservice"
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
             dir("./microservices/services/${name}"){
-                sh 'pwd'
+                sh 'ls'
             }
         }
     }
