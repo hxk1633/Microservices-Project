@@ -1,8 +1,8 @@
 def loop_func(values){
     for (int i=0; i<values.size();i++) {
         stage("test ${values[i]}"){
-            name=values[i].split(' ')[0]
-            flag=values[i].split(' ')[1]
+            def name=values[i].split(' ')[0]
+            def flag=values[i].split(' ')[1]
             sh 'bash hello.sh $name'
          }
 
