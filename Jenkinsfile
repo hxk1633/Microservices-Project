@@ -49,7 +49,7 @@ def loop(values){
         def folderDirectory = arr[j].split('/')
         result = "${result}${folderDirectory[folderDirectory.length-2]} "
     }
-    result=result.tokenize(" ")*.trim()
+    result= "${result}".tokenize(" ")*.trim()
     result = result.unique()
     echo result
 }
