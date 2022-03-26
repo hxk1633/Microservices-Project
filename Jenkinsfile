@@ -43,7 +43,11 @@ def obtainRecords(){
 def loop(values){
     def arr = values.split(',')
     for (int j = 0; j < arr.length; j++) {
-        echo arr[j]
+        if(arr[j].startsWith('')){
+            echo arr[j]
+        }else{
+            echo "hello"
+        }
     }
 }
 
