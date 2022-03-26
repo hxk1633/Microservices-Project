@@ -51,6 +51,7 @@ def obtainRecords(){
     def resultS = tempResult.tokenize(' ')
     resultS = resultS.unique()
     env.folders =  "${resultS}"
+    echo env.folders
 }
 
 // def loop(values){
