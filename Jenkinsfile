@@ -52,7 +52,8 @@ def loop(values){
     // GIT_COMMIT = sh (
     //     script: "echo "${result}" | awk '{for (i=1;i<=NF;i++) if (!result[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'"
     //     returnStdout:true).trim()
-    echo "${result}"
+    def resultS = result.tokenize(' ')
+    echo "${resultS}"
 }
 
 
