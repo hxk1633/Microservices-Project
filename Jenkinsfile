@@ -20,7 +20,7 @@
 //         }
 //     }
 // }
-def arr = new ArrayList()
+def arr = []
 
 def loop(){
     def changeLogSets = currentBuild.changeSets
