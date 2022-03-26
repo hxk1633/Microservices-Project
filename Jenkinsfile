@@ -93,7 +93,9 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 // obtainRecords()
-                sh 'bash add_newservice.sh posts'
+                dir("./microservices"){
+                    sh 'bash add_newservice.sh posts'
+                }
             }
         }
         // stage('Build and upload Docker image'){
