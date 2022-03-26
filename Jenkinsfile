@@ -29,7 +29,7 @@ def loop(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                env."var" = "${file.path}"
+                env."var" = "${file.editType.name} ${file.path}"
             }
         }
     }
