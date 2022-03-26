@@ -48,7 +48,8 @@ pipeline{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-                loop()
+                // loop()
+                echo "${currentBuild.changeSets}"
             }
         }
         // stage('Build Docker image'){
