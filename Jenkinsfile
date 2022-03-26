@@ -32,7 +32,7 @@ def loop(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                env."var" = "${file.path}"
+                changedFile = "${changedFile}${file.path},"
             }
         }
     }
@@ -53,6 +53,7 @@ pipeline{
         registry4 = 'jh7939/microservices:users_microservice'
         registry5 = 'jh7939/microservices:my-haproxy'
         registryCredential = 'dockerhub_id'
+        changedFile = ''
     }
     
     stages{
@@ -60,8 +61,6 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 // loop()
-                "${arr}".add(1)
-                echo "${arr}"
             }
         }
         // stage('Build Docker image'){
