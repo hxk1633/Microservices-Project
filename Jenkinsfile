@@ -45,8 +45,6 @@ def loop(values){
     for (int j = 0; j < arr.length; j++) {
         if(arr[j].startsWith('microservices/services/')){
             echo arr[j]
-        }else{
-            echo "file not in services"
         }
     }
 }
