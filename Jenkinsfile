@@ -45,9 +45,6 @@ def obtainRecords(){
         def folderDirectory = arr[j].split('/')
         tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
     }
-    // GIT_COMMIT = sh (
-    //     script: "echo "${result}" | awk '{for (i=1;i<=NF;i++) if (!result[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'"
-    //     returnStdout:true).trim()
     def resultS = tempResult.tokenize(' ')
     resultS = resultS.unique()
     env.folders =  "${resultS}"
@@ -91,7 +88,15 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 obtainRecords()
-                // loop(env.result)
+            }
+        }
+        stage('Build and upload Docker image'){
+            steps{
+                script{
+                    for(int i = 0; i < env.folders.length; i++){
+                        echo folders[i]
+                    }
+                }
             }
         }
         // stage('Build Docker image'){
