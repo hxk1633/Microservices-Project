@@ -33,7 +33,8 @@ def obtainRecords(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                result = "${result}${file.editType} ${file.path},"
+                def type = file.getEditType()
+                result = "${result}${type} ${file.path},"
             }
         }
     }
