@@ -49,8 +49,10 @@ def loop(values){
         def folderDirectory = arr[j].split('/')
         result = "${result}${folderDirectory[folderDirectory.length-2]} "
     }
-    resultS = result.split(' ')
-    echo "${resultS}" | awk '{for (i=1;i<=NF;i++) if (!resultS[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'
+    GIT_COMMIT = sh (
+        script: "echo "${result}" | awk '{for (i=1;i<=NF;i++) if (!result[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'"
+        returnStdout:true).trim()
+    echo "${GIT_COMMIT}"
 }
 
 
