@@ -39,23 +39,34 @@ def obtainRecords(){
             }
         }
     }
-    env.result = "${result}"
-}
-
-def loop(values){
-    def result = '';
-    def arr = values.split(',')
+    def tempResult = '';
+    def arr = result.split(',')
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
-        result = "${result}${folderDirectory[folderDirectory.length-2]} "
+        tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
     }
     // GIT_COMMIT = sh (
     //     script: "echo "${result}" | awk '{for (i=1;i<=NF;i++) if (!result[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'"
     //     returnStdout:true).trim()
-    def resultS = result.tokenize(' ')
+    def resultS = tempResult.tokenize(' ')
     resultS = resultS.unique()
-    echo "${resultS}"
+    env.folders =  "${resultS}"
 }
+
+// def loop(values){
+//     def tempResult = '';
+//     def arr = values.split(',')
+//     for (int j = 0; j < arr.length; j++) {
+//         def folderDirectory = arr[j].split('/')
+//         tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
+//     }
+//     // GIT_COMMIT = sh (
+//     //     script: "echo "${result}" | awk '{for (i=1;i<=NF;i++) if (!result[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'"
+//     //     returnStdout:true).trim()
+//     def resultS = tempResult.tokenize(' ')
+//     resultS = resultS.unique()
+//     echo "${resultS}"
+// }
 
 
 pipeline{
