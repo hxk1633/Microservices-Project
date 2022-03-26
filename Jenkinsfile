@@ -93,7 +93,7 @@ pipeline{
         stage('Build and upload Docker image'){
             steps{
                 script{
-                    for(int i = 0; i < env.folders.length; i++){
+                    for(int i = 0; i < env.folders.size; i++){
                         echo folders[i]
                     }
                 }
