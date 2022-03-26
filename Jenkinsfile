@@ -47,8 +47,10 @@ def loop(values){
     def arr = values.split(',')
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
-        result = "${result}${folderDirectory[folderDirectory.length-2]}"
+        result = "${result}${folderDirectory[folderDirectory.length-2]} "
     }
+    result=result.tokenize(" ")*.trim()
+    result = result.unique()
     echo result
 }
 
