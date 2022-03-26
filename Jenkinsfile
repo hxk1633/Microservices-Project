@@ -43,7 +43,7 @@ def obtainRecords(){
 }
 
 def loop(values){
-    def result = new ArrayList().toSet()
+    def result = new ArrayList();
     def arr = values.split(',')
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
