@@ -40,6 +40,7 @@ def obtainRecords(){
         }
     }
     def tempResult = '';
+    def folders = '';
     def arr = result.split(',')
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
@@ -47,8 +48,11 @@ def obtainRecords(){
     }
     def resultS = tempResult.tokenize(' ')
     resultS = resultS.unique()
-    env.folders =  "${resultS}"
-    echo env.folders
+    for(int i = 0; i < resultS.size(); i++){
+        folders="${folders}${resultS[i]},"
+    }
+    echo folders
+    env.folders =  "${folders}"
 }
 
 // def loop(values){
