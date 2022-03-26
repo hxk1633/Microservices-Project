@@ -22,7 +22,8 @@
 def loop(){
 
     for(int i=0; i<currentBuild.changeSets.size();i++){
-        echo currentBuild.changeSets[i]
+        var = currentBuild.changeSet[i]
+        echo "${var}"
         // echo "{values[i]}"
     }
 }
