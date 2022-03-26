@@ -49,9 +49,8 @@ def loop(values){
         def folderDirectory = arr[j].split('/')
         result = "${result}${folderDirectory[folderDirectory.length-2]} "
     }
-    resultS = result.split(' ').toSet()
-    resultS = resultS.unique()
-    echo resultS
+    resultS = result.split(' ')
+    echo "${resultS}" | awk '{for (i=1;i<=NF;i++) if (!resultS[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'
 }
 
 
