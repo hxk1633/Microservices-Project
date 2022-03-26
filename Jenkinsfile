@@ -23,7 +23,7 @@
 
 
 def loop(){
-    result = ''
+    def result = new ArrayList()
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
         def entries = changeLogSets[i].items
@@ -62,6 +62,7 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 loop()
+                echo env.result
             }
         }
         // stage('Build Docker image'){
