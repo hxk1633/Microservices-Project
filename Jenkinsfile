@@ -94,15 +94,15 @@ pipeline{
                 obtainRecords()
             }
         }
-        stage('Build and upload Docker image'){
-            steps{
-                script{
-                    // for(int i = 0; i < env.folders.length(); i++){
-                    //     echo folders[i]
-                    // }
-                }
-            }
-        }
+        // stage('Build and upload Docker image'){
+        //     steps{
+        //         script{
+        //             // for(int i = 0; i < env.folders.length(); i++){
+        //             //     echo folders[i]
+        //             // }
+        //         }
+        //     }
+        // }
         // stage('Build Docker image'){
         //     when {
         //         changeset "microservices/services/comments/*"
