@@ -22,7 +22,7 @@
 // }
 
 
-def loop(){
+def obtainRecords(){
     def result = new ArrayList()
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
@@ -38,6 +38,12 @@ def loop(){
         }
     }
     env.result = "${result}"
+}
+
+def loop(values){
+    for(int i = 0; i < values.size(); i++){
+        echo values[i]
+    }
 }
 
 
@@ -61,8 +67,8 @@ pipeline{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-                loop()
-                echo env."${result}"
+                obtainRecords()
+                loops(env.result)
             }
         }
         // stage('Build Docker image'){
