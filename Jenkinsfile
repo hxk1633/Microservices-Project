@@ -23,7 +23,7 @@
 
 
 def obtainRecords(){
-    def result = new ArrayList()
+    result = ''
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
         def entries = changeLogSets[i].items
@@ -33,7 +33,7 @@ def obtainRecords(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                result.add("${file.path}")
+                result = "${result}${file.path},"
             }
         }
     }
