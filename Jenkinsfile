@@ -94,7 +94,7 @@ pipeline{
             steps{
                 script{
                     for(int i = 0; i < env.folders.length(); i++){
-                        echo folders.charAt(i)
+                        echo folders[i]
                     }
                 }
             }
