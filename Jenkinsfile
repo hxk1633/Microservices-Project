@@ -105,7 +105,8 @@ pipeline{
                             dockerName = "${registry}${arr[i]}_microservice"
                             dockerImage = docker.build dockerName
                             docker.withRegistry('', registryCredential){
-                            dockerImage.push()
+                                dockerImage.push()
+                            }
                         }
                     }
                 }
