@@ -46,9 +46,10 @@ def loop(values){
     def arr = values.split(',')
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
-        for(int i = 0; i < folderDirectory.length; i++){
-            echo folderDirectory[i]
-        }
+        echo folderDirectory[folderDirectory.length-2]
+        // for(int i = 0; i < folderDirectory.length; i++){
+        //     echo folderDirectory[i]
+        // }
 
     }
 }
