@@ -78,6 +78,7 @@ pipeline{
     
     environment{
         dockerImage = ''
+        directory = './microservices/services/'
         registry = 'jh7939/microservices:'
         registry1 = 'jh7939/microservices:comments_microservice' 
         registry2 = 'jh7939/microservices:posts_microservice' 
@@ -98,8 +99,10 @@ pipeline{
             steps{
                 script{
                     def arr = env.folders.split(',')
-                    for(int i = 0; i < arr.length; i++){
-                        echo arr[i]
+                    for(int i = 0; i <arr.length; i++){
+                        dir("${directory}${arr[i]}"){
+                            echo arr[i]
+                        }
                     }
                 }
             }
