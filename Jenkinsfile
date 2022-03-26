@@ -41,9 +41,10 @@ def obtainRecords(){
 }
 
 def loop(values){
-    for(int i = 0; i < values.size(); i++){
-        echo values[i]
-    }
+    echo "${values}"
+    // for(int i = 0; i < values.size(); i++){
+    //     echo values[i]
+    // }
 }
 
 
