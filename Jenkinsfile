@@ -20,7 +20,7 @@
 //         }
 //     }
 // }
-def arr = []
+
 
 def loop(){
     def changeLogSets = currentBuild.changeSets
@@ -32,7 +32,7 @@ def loop(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                env."${changedFile}" += "${file.path},"
+                "${changedFile}" += "${file.path},"
             }
         }
     }
