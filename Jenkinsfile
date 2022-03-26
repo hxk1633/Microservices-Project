@@ -32,7 +32,7 @@ def loop(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                env."${changedFile}" = "${changedFile}${file.path},"
+                env."${changedFile}" += "${file.path},"
             }
         }
     }
