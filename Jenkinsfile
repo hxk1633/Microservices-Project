@@ -102,6 +102,10 @@ pipeline{
                     for(int i = 0; i <arr.length; i++){
                         dir("${directory}${arr[i]}"){
                             echo arr[i]
+                            dockerName = "${registry}${arr[i]}_microservice"
+                            dockerImage = docker.build dockerName
+                            docker.withRegistry('', registryCredential){
+                            dockerImage.push()
                         }
                     }
                 }
