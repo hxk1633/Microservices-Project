@@ -33,7 +33,7 @@ def obtainRecords(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                if(file.editType.name != "delete"){
+                if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
                 }
             }
@@ -46,9 +46,6 @@ def loop(values){
     def arr = values.split(',')
     for (int j = 0; j < arr.length; j++) {
         echo arr[j]
-        // if(arr[j].startsWith('microservices/services/')){
-        //     echo arr[j]
-        // }
     }
 }
 
