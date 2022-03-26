@@ -69,7 +69,7 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 obtainRecords()
-                loops(env.result)
+                loop(env.result)
             }
         }
         // stage('Build Docker image'){
