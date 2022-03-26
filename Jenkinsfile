@@ -37,7 +37,7 @@ def loop(){
             }
         }
     }
-    env."result" = "${result}"
+    env.result = "${result}"
 }
 
 
