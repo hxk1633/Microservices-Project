@@ -43,10 +43,13 @@ def obtainRecords(){
 }
 
 def loop(values){
-    def arr = values.split('/')
+    def arr = values.split(',')
     for (int j = 0; j < arr.length; j++) {
-    // echo arr[arr.length-2]
-        echo arr[j]
+        def folderDirectory = arr[j].split('/')
+        for(int i = 0; i < folderDirectory.length; i++){
+            echo folderDirectory[i]
+        }
+
     }
 }
 
