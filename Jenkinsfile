@@ -29,7 +29,7 @@ def loop(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                env."var_${k}" = ${file.path}
+                env."var" = ${file.path}
             }
         }
     }
@@ -57,7 +57,7 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 loop()
-                echo "${var_0}"
+                sh "echo ${var}"
             }
         }
         // stage('Build Docker image'){
