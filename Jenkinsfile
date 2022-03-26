@@ -33,8 +33,9 @@ def obtainRecords(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                // if(file.editType.name == "edit" || file.editType.name == '')
-                result = "${result}${file.editType.name} ${file.path},"
+                if(file.editType.name != "delete"){
+                    result = "${result}${file.path},"
+                }
             }
         }
     }
