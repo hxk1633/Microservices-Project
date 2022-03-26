@@ -51,7 +51,6 @@ pipeline{
         registry4 = 'jh7939/microservices:users_microservice'
         registry5 = 'jh7939/microservices:my-haproxy'
         registryCredential = 'dockerhub_id'
-        def arr = new ArrayList()
     }
     
     stages{
@@ -59,6 +58,7 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 // loop()
+                def arr = new ArrayList()
                 echo "${arr}"
             }
         }
