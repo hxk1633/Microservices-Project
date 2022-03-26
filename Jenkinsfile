@@ -13,6 +13,7 @@
 //             }
 //             sh 'bash add_newservice.sh ${name}'
 //             dir("./microservices"){
+                    // ssh git pull docker-compose file 
 //                 sh "docker pull ${registry}${name}_microservice"
 //                 sh "bash update_containers.sh ${name} 4"
 //             }
@@ -50,14 +51,15 @@ pipeline{
         registry4 = 'jh7939/microservices:users_microservice'
         registry5 = 'jh7939/microservices:my-haproxy'
         registryCredential = 'dockerhub_id'
+        def arr = new ArrayList()
     }
     
     stages{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-                loop()
-                echo "${var}"
+                // loop()
+                echo "${arr}"
             }
         }
         // stage('Build Docker image'){
