@@ -58,7 +58,7 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
                 // loop()
-                def arr = new ArrayList()
+                def arr = [1,2,3,4]
                 echo "${arr}"
             }
         }
