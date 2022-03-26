@@ -98,7 +98,7 @@ pipeline{
             steps{
                 script{
                     def arr = env.folders.split(',')
-                    for(int i = 0; i < env.folders.length; i++){
+                    for(int i = 0; i < arr.length; i++){
                         echo arr[i]
                     }
                 }
