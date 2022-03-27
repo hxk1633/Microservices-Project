@@ -96,21 +96,26 @@ pipeline{
                 obtainRecords()
             }
         }
-        stage('Build and upload Docker image'){
-            steps{
-                script{
-                    def arr = env.folders.split(',')
-                    for(int i = 0; i <arr.length; i++){
-                        dir("${directory}${arr[i]}"){
-                            echo arr[i]
-                            dockerName = "${registry}${arr[i]}_microservice"
-                            dockerImage = docker.build dockerName
-                            docker.withRegistry('', registryCredential){
-                                dockerImage.push()
-                            }
-                        }
-                    }
-                }
+        // stage('Build and upload Docker image'){
+        //     steps{
+        //         script{
+        //             def arr = env.folders.split(',')
+        //             for(int i = 0; i <arr.length; i++){
+        //                 dir("${directory}${arr[i]}"){
+        //                     echo arr[i]
+        //                     dockerName = "${registry}${arr[i]}_microservice"
+        //                     dockerImage = docker.build dockerName
+        //                     docker.withRegistry('', registryCredential){
+        //                         dockerImage.push()
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        stage('print task'){
+            dir("./microservices"){
+                sh "bash test.sh ${env.folders}"
             }
         }
         // stage('swap containers'){
