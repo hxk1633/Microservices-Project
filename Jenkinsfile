@@ -114,8 +114,10 @@ pipeline{
         //     }
         // }
         stage('print task'){
-            dir("./microservices"){
-                sh "bash test.sh ${env.folders}"
+            steps{
+                dir("./microservices"){
+                    sh "bash test.sh ${env.folders}"
+                }
             }
         }
         // stage('swap containers'){
