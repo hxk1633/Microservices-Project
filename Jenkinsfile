@@ -35,6 +35,7 @@ def obtainRecords(){
                 def file = files[k]
                 if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
+                    // ${file.editType.name} 
                 }
             }
         }
@@ -92,10 +93,7 @@ pipeline{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-                // obtainRecords()
-                dir("./microservices"){
-                    sh 'bash add_newservice.sh posts'
-                }
+                obtainRecords()
             }
         }
         // stage('Build and upload Docker image'){
@@ -114,6 +112,10 @@ pipeline{
         //             }
         //         }
         //     }
+        // }
+        // stage('swap containers'){
+        //     dir("./microservices/services/${name}"){
+
         // }
         // stage('Build Docker image'){
         //     when {
