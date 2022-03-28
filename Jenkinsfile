@@ -20,6 +20,8 @@ def obtainChanges(){
         }
     }
 
+    echo "result: ${result}"
+
     def tempResult = '';
     def folders = '';
     def arr = result.split(',')
@@ -32,6 +34,7 @@ def obtainChanges(){
         }
     }
 
+    echo "tempResult: ${tempResult} "
     def resultS = tempResult.tokenize(' ')
     resultS = resultS.unique()
     for(int i = 0; i < resultS.size(); i++){
@@ -39,7 +42,7 @@ def obtainChanges(){
     }
     env.folders =  "${folders}"
 
-    echo folders
+    echo "folders: ${folders}"
 
 
     // def tempResult_new = '';
