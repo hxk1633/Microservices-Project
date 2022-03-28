@@ -85,7 +85,11 @@ pipeline{
         }
         stage('Microservice detect change'){
             steps{
-                obtainChanges()
+                GIT_COMMIT_EMAIL = sh (
+                script: 'git diff --diff-filter=AM --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
+                returnStdout: true).trim()
+                echo "Git committer email: ${GIT_COMMIT_EMAIL}"
+                // obtainChanges()
                 // echo folders
                 // echo folders_new
             }
