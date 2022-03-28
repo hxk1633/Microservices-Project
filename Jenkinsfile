@@ -15,7 +15,6 @@ def obtainChanges(){
             def folderDirectory = arr_comma[j].split('/')
             for(int z = 0; z < folderDirectory.length; z++){
             if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
-                echo folderDirectory[z+1]
                 tempResult = "${tempResult}${folderDirectory[z+1]} "
                 break
             }
