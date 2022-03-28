@@ -1,6 +1,6 @@
 #!/usr/bin/bash
-IFS=',' read -a TASKS <<< $1
-echo ${#TASKS[@]}
+IFS=', ' read -a -r TASKS <<< $1
+
 for i in "${TASKS[@]}"; do
     echo "$i"
     echo "hello"
