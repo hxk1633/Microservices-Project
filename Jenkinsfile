@@ -107,7 +107,6 @@ pipeline{
                     }
                 }
             }
-        }
 
         stage('Microservice Build and upload Docker image(add)'){
             steps{
