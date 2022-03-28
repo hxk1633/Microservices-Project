@@ -94,9 +94,11 @@ pipeline{
             }
             steps{
                 script{
-                    dockerImage = docker.build registry_mono
-                    docker.withRegistry('', registryCredential){
+                    dir("monolithic-app"){
+                        dockerImage = docker.build registry_mono
+                        docker.withRegistry('', registryCredential){
                                     dockerImage.push()
+                        }
                     }
                 }
             }
