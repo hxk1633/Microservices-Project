@@ -79,10 +79,12 @@ pipeline{
         stage('Microservice task'){
             steps{
                 script{
-                    def folderNames = env.folders.split(',')
-                    dir("./microservices"){
-                        for(int i = 0; i < folderNames.length; i++){
-                            sh "bash sshlogin.sh ${folderNames[i]}"
+                    if(env.folders != ''){
+                        def folderNames = env.folders.split(',')
+                        dir("./microservices"){
+                            for(int i = 0; i < folderNames.length; i++){
+                                sh "bash sshlogin.sh ${folderNames[i]}"
+                            }
                         }
                     }
                 }
