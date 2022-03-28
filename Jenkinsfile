@@ -15,35 +15,37 @@ def obtainChanges(){
             }
         }
     }
+    
+    echo result
 
 
-    def tempResult = '';
-    def folders = '';
-    def arr = result.split(',')
-    for (int j = 0; j < arr.length; j++) {
-        def folderDirectory = arr[j].split('/')
-        for(int k = 0; k < folderDirectory.length; k++){
-            if(folderDirectory[k] == "services" && k+1 < folderDirectory.length && folderDirectory[k+1] != ".DS_Store"){
-                echo folderDirectory[k+1]
-                tempResult = "${tempResult}${folderDirectory[k+1]} "
-                break
-            }
-        }
-        // tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
-    }
+    // def tempResult = '';
+    // def folders = '';
+    // def arr = result.split(',')
+    // for (int j = 0; j < arr.length; j++) {
+    //     def folderDirectory = arr[j].split('/')
+    //     for(int z = 0; z < folderDirectory.length; z++){
+    //         if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
+    //             echo folderDirectory[z+1]
+    //             tempResult = "${tempResult}${folderDirectory[z+1]} "
+    //             break
+    //         }
+    //     }
+    //     // tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
+    // }
 
-    def resultS = tempResult.tokenize(' ')
-    resultS = resultS.unique()
-    for(int i = 0; i < resultS.size(); i++){
-        folders="${folders}${resultS[i]},"
-    }
-    echo folders
-    env.folders =  "${folders}"
+    // def resultS = tempResult.tokenize(' ')
+    // resultS = resultS.unique()
+    // for(int i = 0; i < resultS.size(); i++){
+    //     folders="${folders}${resultS[i]},"
+    // }
+    // echo folders
+    // env.folders =  "${folders}"
 
 
-    // echo "result_new: ${result}"
-    // echo "tempResult_new: ${tempResult} "
-    echo "folders: ${folders}"
+    // // echo "result_new: ${result}"
+    // // echo "tempResult_new: ${tempResult} "
+    // echo "folders: ${folders}"
 
 }
 
