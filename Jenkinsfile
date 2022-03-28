@@ -1,28 +1,4 @@
-// def create_stages(values){
-//     for (int i=0; i<values.size();i++) {
-//         stage("update ${values[i]}"){
-//             env."name"=values[i].split(' ')[0]
-//             env."flag"=values[i].split(' ')[1]
-//             dockerName = "${registry}${name}_microservice"
-//             checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-//             dir("./microservices/services/${name}"){
-//                 dockerImage = docker.build dockerName
-//                 docker.withRegistry('', registryCredential){
-//                             dockerImage.push()
-//                 }
-//             }
-//             sh 'bash add_newservice.sh ${name}'
-//             dir("./microservices"){
-                    // ssh git pull docker-compose file 
-//                 sh "docker pull ${registry}${name}_microservice"
-//                 sh "bash update_containers.sh ${name} 4"
-//             }
-//         }
-//     }
-// }
-
-
-def obtainRecords(){
+def obtainChanges(){
     result = ''
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
@@ -35,7 +11,6 @@ def obtainRecords(){
                 def file = files[k]
                 if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
-                    // ${file.editType.name} 
                 }
             }
         }
@@ -55,22 +30,6 @@ def obtainRecords(){
     echo folders
     env.folders =  "${folders}"
 }
-
-// def loop(values){
-//     def tempResult = '';
-//     def arr = values.split(',')
-//     for (int j = 0; j < arr.length; j++) {
-//         def folderDirectory = arr[j].split('/')
-//         tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
-//     }
-//     // GIT_COMMIT = sh (
-//     //     script: "echo "${result}" | awk '{for (i=1;i<=NF;i++) if (!result[$i]++) printf("%s%s",$i,FS)}{printf("\n")}'"
-//     //     returnStdout:true).trim()
-//     def resultS = tempResult.tokenize(' ')
-//     resultS = resultS.unique()
-//     echo "${resultS}"
-// }
-
 
 pipeline{
     
@@ -93,10 +52,14 @@ pipeline{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-                obtainRecords()
             }
         }
-        stage('Build and upload Docker image'){
+        stage('Microservice detect changes'){
+            steps{
+                obtainChanges()
+            }
+        }
+        stage('Microservice Build and upload Docker image'){
             steps{
                 script{
                     def arr = env.folders.split(',')
@@ -113,7 +76,7 @@ pipeline{
                 }
             }
         }
-        stage('print task'){
+        stage('Microservice task'){
             steps{
                 script{
                     def folderNames = env.folders.split(',')
@@ -123,244 +86,7 @@ pipeline{
                         }
                     }
                 }
-                    // sh "bash sshlogin.sh ${env.folders}"
             }
         }
-        // stage('swap containers'){
-        //     dir("./microservices/services/${name}"){
-
-        // }
-        // stage('Build Docker image'){
-        //     when {
-        //         changeset "microservices/services/comments/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir('./microservices/services/comments'){
-        //                 dockerImage = docker.build registry1
-        //              }
-        //         }
-        //     }
-        // }
-        
-        // stage("Uploading Image"){
-        //     when {
-        //         changeset "microservices/services/comments/*"
-        //     }
-        //     steps{
-        //         script{
-        //                 docker.withRegistry('', registryCredential){
-        //                     dockerImage.push()
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage('Checkout2'){
-        //     steps{
-        //         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
- 
-          
-        //     }
-        // }
-        // stage('Build Docker image2'){
-        //     when {
-        //         changeset "microservices/services/posts/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir('./microservices/services/posts'){
-        //                 dockerImage = docker.build registry2
-        //              }
-        //         }
-        //     }
-        // }
-        
-        // stage("Uploading Image2"){
-            
-        //     when {
-        //         changeset "microservices/services/posts/*"
-        //     }
-        //     steps{
-        //         script{
-        //                 docker.withRegistry('', registryCredential){
-        //                     dockerImage.push()
-        //             }
-        //         }
-        //     }
-        // }
-        
-        // stage('Checkout3'){
-        //     steps{
-        //         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
- 
-          
-        //     }
-        // }
-        // stage('Build Docker image3'){
-            
-        //     when {
-        //         changeset "microservices/services/threads/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir('./microservices/services/threads'){
-        //                 dockerImage = docker.build registry3
-        //              }
-        //         }
-        //     }
-        // }
-        
-        // stage("Uploading Image3"){
-            
-        //     when {
-        //         changeset "microservices/services/threads/*"
-        //     }
-        //     steps{
-        //         script{
-        //                 docker.withRegistry('', registryCredential){
-        //                     dockerImage.push()
-        //             }
-        //         }
-        //     }
-        // }
-        
-        // stage('Checkout4'){
-        //     steps{
-        //         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
- 
-          
-        //     }
-        // }
-        // stage('Build Docker image4'){
-        //     when {
-        //         changeset "microservices/services/users/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir('./microservices/services/users'){
-        //                 dockerImage = docker.build registry4
-        //              }
-        //         }
-        //     }
-        // }
-        
-        // stage("Uploading Image4"){
-            
-        //     when {
-        //         changeset "microservices/services/users/*"
-        //     }
-        //     steps{
-        //         script{
-        //                 docker.withRegistry('', registryCredential){
-        //                     dockerImage.push()
-        //             }
-        //         }
-        //     }
-        // }
-        
-        // stage('Checkout5'){
-        //     steps{
-        //         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-          
-        //     }
-        // }
-        // stage('Build Docker image5'){
-            
-        //     when {
-        //         changeset "microservices/haproxy/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir('./microservices/haproxy'){
-        //                 dockerImage = docker.build registry5
-        //              }
-        //         }
-        //     }
-        // }
-        
-        // stage("Uploading Image5"){
-            
-        //     when {
-        //         changeset "microservices/haproxy/*"
-        //     }
-        //     steps{
-        //         script{
-        //                 docker.withRegistry('', registryCredential){
-        //                     dockerImage.push()
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage("swap threads containers"){
-        //     when{
-        //             changeset "microservices/services/threads/*"  
-        //         }           
-        //     steps{
-        //         script{
-        //             dir("./microservices"){
-        //                 sh 'bash sshlogin.sh threads'
-        //                 // sh 'bash update_containers.sh threads 4'
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage("swap posts containers"){
-        //     when{
-        //             changeset "microservices/services/posts/*"  
-        //         }           
-        //     steps{
-        //         script{
-        //             dir("./microservices"){
-        //                 sh 'bash sshlogin.sh posts'
-        //                 // sh 'bash update_containers.sh posts 4'
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage("swap users containers"){
-        //     when{
-        //             changeset "microservices/services/users/*"  
-        //         }           
-        //     steps{
-        //         script{
-        //             dir("./microservices"){
-        //                 sh 'bash sshlogin.sh users'
-        //                 // sh 'bash update_containers.sh users 4'
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage("swap comments containers"){
-        //     when{
-        //             changeset "microservices/services/comments/*"  
-        //         }           
-        //     steps{
-        //         script{
-        //             dir("./microservices"){
-        //                 sh 'bash sshlogin.sh comments'
-        //                 // sh 'bash update_containers.sh comments 4'
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Detect new folder'){
-        //     steps{
-        //         script{
-        //             dir("./microservices"){
-        //                 newly_commit = sh (
-        //                     script: 'bash helper.sh',
-        //                     returnStdout: true
-        //                 ).trim()
-        //                 def v = "${newly_commit}".split('\n')
-        //                 create_stages(v)
-        //             }
-        //         }
-        //     }
-        // }
     }
 }
