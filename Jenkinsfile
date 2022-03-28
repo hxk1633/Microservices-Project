@@ -117,10 +117,10 @@ pipeline{
             steps{
                 script{
                     def folderNames = env.folders.split(',')
-                    for(int i = 0; i < folderNames.length; i++){
-                        dir("./microservices"){
-                            echo folderNames[i]
-                        }
+                    dir("./microservices"){
+                        for(int i = 0; i < folderNames.length; i++){
+                                echo folderNames[i]
+                            }
                     }
                 }
                     // sh "bash sshlogin.sh ${env.folders}"
