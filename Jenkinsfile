@@ -20,6 +20,10 @@ def obtainChanges(){
             }
         }
     }
+
+    echo result_new
+    echo "hello"
+
     def tempResult = '';
     def folders = '';
     def arr = result.split(',')
