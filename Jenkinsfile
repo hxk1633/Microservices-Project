@@ -11,8 +11,11 @@ def obtainChanges(){
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
                 echo file.editType.name
-                if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
+                if(file.editType.name == "edit" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
+                }
+                if(file.editType.name == "add" && file.path.startsWith('microservices/services/')){
+                    result_new = "${result_new}${file.path},"
                 }
             }
         }
@@ -31,6 +34,22 @@ def obtainChanges(){
     }
     echo folders
     env.folders =  "${folders}"
+
+
+    def tempResult_new = '';
+    def folders_new = '';
+    def arr_new = result.split(',')
+    for (int j = 0; j < arr_new.length; j++) {
+        def folderDirectory_new = arr_new[j].split('/')
+        tempResult_new = "${tempResult_new}${folderDirectory_new[folderDirectory_new.length-2]} "
+    }
+    def resultS_new = tempResult_new.tokenize(' ')
+    resultS_new = resultS_new.unique()
+    for(int i = 0; i < resultS_new.size(); i++){
+        folders_new="${folders_new}${resultS_new[i]},"
+    }
+    echo folders_new
+    env.folders_new =  "${folders_new}"
 }
 
 pipeline{
