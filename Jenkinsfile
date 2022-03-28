@@ -30,10 +30,10 @@ def obtainChanges(){
     echo folders
     env.folders =  "${folders}"
 
-    echo "result: ${result_new}"
-    echo "tempResult: ${tempResult_new} "
+    echo "result: ${result}"
+    echo "tempResult: ${tempResult} "
 
-    echo "folders: ${folders_new}"
+    echo "folders: ${folders}"
 
 }
 
