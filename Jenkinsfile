@@ -90,7 +90,7 @@ pipeline{
         }
         stage('Monolithic detect changes'){
             when{
-                changeSets "monolithic-app"
+                changeset "monolithic-app"
             }
             steps{
                 script{
