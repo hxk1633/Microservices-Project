@@ -123,10 +123,10 @@ pipeline{
                         // }
                     }
 
-                    if(env.folders != ''){
+                    if(env.folders_new != ''){
                           dir("./microservices"){
                             flag_new = "new"
-                            sh "bash sshlogin.sh ${env.folders} ${flag_new}" 
+                            sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
                         }
                     }
                 }
