@@ -51,7 +51,9 @@ pipeline{
             }
         }
         stage('Microservice detect change'){
-            obtainChanges()
+            steps{
+                obtainChanges()
+            }
         }
         stage('Microservice Build and upload Docker image'){
             steps{
