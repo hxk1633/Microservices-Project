@@ -15,13 +15,19 @@ def obtainChanges(){
             }
         }
     }
+
+
     def tempResult = '';
     def folders = '';
     def arr = result.split(',')
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
+        for(int k = 0; k < folderDirectory.length; k++){
+            echo folderDirectory[k]
+        }
         tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
     }
+
     def resultS = tempResult.tokenize(' ')
     resultS = resultS.unique()
     for(int i = 0; i < resultS.size(); i++){
