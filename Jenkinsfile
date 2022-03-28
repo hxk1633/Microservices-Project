@@ -51,6 +51,9 @@ pipeline{
             }
         }
         stage('Microservice detect change'){
+            when{
+                cahngeset "microservices/*"
+            }
             steps{
                 obtainChanges()
             }
@@ -88,7 +91,7 @@ pipeline{
                 }
             }
         }
-        stage('Monolithic detect changes'){
+        stage('Monolithic detect changes, build ,and push images'){
             when{
                 changeset "monolithic-app/*"
             }
@@ -100,6 +103,16 @@ pipeline{
                                     dockerImage.push()
                         }
                     }
+                }
+            }
+        }
+        stage('Monolithic task'){
+            when{
+                changeset "monolithic-app/*"
+            }
+            steps{
+                dir("monolithic-app"){
+                    sh "bash sshlogin.sh"
                 }
             }
         }
