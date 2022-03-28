@@ -1,5 +1,6 @@
 def obtainChanges(){
     result = ''
+    result_new = ''
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
         def entries = changeLogSets[i].items
@@ -9,7 +10,7 @@ def obtainChanges(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
+                if(file.editType.name == "modified" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
                 }
             }
@@ -55,25 +56,25 @@ pipeline{
                 obtainChanges()
             }
         }
-        // stage('Microservice Build and upload Docker image'){
-        //     steps{
-        //         script{
-        //             if(env.folders != ''){
-        //                 def arr = env.folders.split(',')
-        //                 for(int i = 0; i <arr.length; i++){
-        //                     dir("${directory}${arr[i]}"){
-        //                         echo arr[i]
-        //                         dockerName = "${registry}${arr[i]}_microservice"
-        //                         dockerImage = docker.build dockerName
-        //                         docker.withRegistry('', registryCredential){
-        //                             dockerImage.push()
-        //                         }
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Microservice Build and upload Docker image'){
+            steps{
+                script{
+                    if(env.folders != ''){
+                        def arr = env.folders.split(',')
+                        for(int i = 0; i <arr.length; i++){
+                            dir("${directory}${arr[i]}"){
+                                echo arr[i]
+                                dockerName = "${registry}${arr[i]}_microservice"
+                                dockerImage = docker.build dockerName
+                                docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         stage('Microservice task'){
             steps{
                 script{
