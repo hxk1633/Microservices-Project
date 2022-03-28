@@ -1,6 +1,7 @@
 #!/usr/bin/bash
-while IFS=';' read -ra ADDR; do
-  for i in "${ADDR[@]}"; do
+IFS=',' read -ra TASKS <<< $1
+echo "${TASKS[@]}"
+for i in "${TASKS[@]}"; do
     echo "$i"
-  done
-done <<< $1
+    echo "hello"
+done
