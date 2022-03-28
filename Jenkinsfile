@@ -12,11 +12,9 @@ def obtainChanges(){
                 def file = files[k]
                 echo file.editType.name
                 if(file.editType.name == "edit" && file.path.startsWith('microservices/services/')){
-                    echo file.path
                     result = "${result}${file.path},"
                 }
                 if(file.editType.name == "add" && file.path.startsWith('microservices/services/')){
-                    echo file.path
                     result_new = "${result_new}${file.path},"
                 }
             }
@@ -39,7 +37,6 @@ def obtainChanges(){
     for(int i = 0; i < resultS.size(); i++){
         folders="${folders}${resultS[i]},"
     }
-    echo folders
     env.folders =  "${folders}"
 
 
