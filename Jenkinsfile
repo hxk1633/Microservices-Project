@@ -55,13 +55,6 @@ pipeline{
                 obtainChanges()
             }
         }
-        // stage('Test'){
-        //     steps{
-        //         dir("./microservices"){
-        //             sh "bash sshlogin.sh ${env.folders}"
-        //         }
-        //     }
-        // }
         stage('Microservice Build and upload Docker image'){
             steps{
                 script{
@@ -85,15 +78,15 @@ pipeline{
             steps{
                 script{
                     if(env.folders != ''){
-                          dir("./microservices"){
-                            sh "bash sshlogin.sh ${env.folders}"
-                        }
-                        // def folderNames = env.folders.split(',')
-                        // dir("./microservices"){
-                        //     for(int i = 0; i < folderNames.length; i++){
-                        //         sh "bash sshlogin.sh ${folderNames[i]}"
-                        //     }
+                        //   dir("./microservices"){
+                        //     sh "bash sshlogin.sh ${env.folders}"
                         // }
+                        def folderNames = env.folders.split(',')
+                        dir("./microservices"){
+                            for(int i = 0; i < folderNames.length; i++){
+                                sh "bash sshlogin.sh ${folderNames[i]}"
+                            }
+                        }
                     }
                 }
             }
