@@ -93,6 +93,7 @@ pipeline{
             steps{
                 script{
                     if(env.folders != ''){
+                        try{
                             def arr = env.folders.split(',')
                             for(int i = 0; i <arr.length; i++){
                                 dir("${directory}${arr[j]}"){
@@ -103,10 +104,13 @@ pipeline{
                                     }
                                 }
                             }
+                        }catch(Exception e){
+                            echo "Microservice Build and upload Docker image(modified) failed"
                         }
                     }
                 }
             }
+        }
 
         stage('Microservice Build and upload Docker image(add)'){
             steps{
