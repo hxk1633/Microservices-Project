@@ -24,6 +24,7 @@ def obtainChanges(){
         def folderDirectory = arr[j].split('/')
         for(int k = 0; k < folderDirectory.length; k++){
             if(folderDirectory[k] == "services" && k+1 < folderDirectory.length && folderDirectory[k+1] != ".DS_Store"){
+                echo folderDirectory[k+1]
                 tempResult = "${tempResult}${folderDirectory[k+1]} "
                 break
             }
@@ -39,6 +40,9 @@ def obtainChanges(){
     echo folders
     env.folders =  "${folders}"
 
+
+    // echo "result_new: ${result}"
+    // echo "tempResult_new: ${tempResult} "
     echo "folders: ${folders}"
 
 }
