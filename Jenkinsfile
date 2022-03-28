@@ -57,7 +57,9 @@ pipeline{
         }
         stage('Test'){
             steps{
-                sh "bash sshlogin.sh ${env.folders}"
+                dir("./microservices"){
+                    sh "bash sshlogin.sh ${env.folders}"
+                }
             }
         }
         // stage('Microservice Build and upload Docker image'){
