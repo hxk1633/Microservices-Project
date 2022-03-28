@@ -42,7 +42,7 @@ def obtainChanges(){
 
     def tempResult_new = '';
     def folders_new = '';
-    def arr_new = result.split(',')
+    def arr_new = result_new.split(',')
     for (int j = 0; j < arr_new.length; j++) {
         def folderDirectory_new = arr_new[j].split('/')
         tempResult_new = "${tempResult_new}${folderDirectory_new[folderDirectory_new.length-2]} "
