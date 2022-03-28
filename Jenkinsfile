@@ -26,7 +26,7 @@ def obtainChanges(){
     for(int i = 0; i < resultS.size(); i++){
         folders="${folders}${resultS[i]},"
     }
-    echo folders
+    echo folders!!
     env.folders =  "${folders}"
 
     // result = ''
