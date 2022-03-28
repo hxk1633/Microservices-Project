@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 sshpass -p '2446592ny' ssh -T jianhe@192.168.2.13<< EOF
-    IFS=', ' read -ra TASKS <<< $1
+    IFS=', ' read -r TASKS <<< $1
 
     for i in "${TASKS[@]}"; do
-        echo $i
+        echo "$i"
         echo "hello"
 
         # cd /Users/jianhe/Documents/GitHub/Microservices-Project/microservices/
