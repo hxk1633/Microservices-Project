@@ -11,11 +11,9 @@ def obtainChanges(){
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
                 if(file.editType.name == "edit" && file.path.startsWith('microservices/services/')){
-                    echo file.path
                     result = "${result}${file.path},"
                 }
                 if(file.editType.name == "add" && file.path.startsWith('microservices/services/')){
-                    echo file.path
                     result_new = "${result_new}${file.path},"
                 }
             }
@@ -28,7 +26,7 @@ def obtainChanges(){
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
         for(int k = 0; k < folderDirectory.length; k++){
-            if(folderDirectory[k] == "services" && k+1 < folderDirectory.length){
+            if(folderDirectory[k] == "services" && k+1 < folderDirectory.length && folderDirectory[k+1] != ".DS_Store"){
                 tempResult = "${tempResult}${folderDirectory[k+1]} "
             }
         }
@@ -47,7 +45,7 @@ def obtainChanges(){
     for (int j = 0; j < arr_new.length; j++) {
         def folderDirectory_new = arr_new[j].split('/')
         for(int k = 0; k < folderDirectory_new.length; k++){
-            if(folderDirectory_new[k] == "services" && k+1 < folderDirectory_new.length){
+            if(folderDirectory_new[k] == "services" && k+1 < folderDirectory_new.length && folderDirectory_new[k+1] != ".DS_Store"){
                 tempResult_new = "${tempResult_new}${folderDirectory_new[k+1]} "
             }
         }
