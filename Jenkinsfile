@@ -95,7 +95,7 @@ pipeline{
                     if(env.folders != ''){
                             def arr = env.folders.split(',')
                             for(int i = 0; i <arr.length; i++){
-                                dir("${directory}${arr[i]}"){
+                                dir("${directory}${arr[j]}"){
                                     dockerName = "${registry}${arr[i]}_microservice"
                                     dockerImage = docker.build dockerName
                                     docker.withRegistry('', registryCredential){
