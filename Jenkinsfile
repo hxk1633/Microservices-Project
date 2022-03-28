@@ -31,13 +31,15 @@ def obtainChanges(){
             }
         }
     }
-    echo tempResult
-    // def resultS = tempResult.tokenize(' ')
-    // resultS = resultS.unique()
-    // for(int i = 0; i < resultS.size(); i++){
-    //     folders="${folders}${resultS[i]},"
-    // }
-    // env.folders =  "${folders}"
+
+    def resultS = tempResult.tokenize(' ')
+    resultS = resultS.unique()
+    for(int i = 0; i < resultS.size(); i++){
+        folders="${folders}${resultS[i]},"
+    }
+    env.folders =  "${folders}"
+
+    echo folders
 
 
     // def tempResult_new = '';
@@ -79,8 +81,8 @@ pipeline{
         stage('Microservice detect change'){
             steps{
                 obtainChanges()
-                echo folders
-                echo folders_new
+                // echo folders
+                // echo folders_new
             }
         }
         // stage('Microservice Build and upload Docker image'){
