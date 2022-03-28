@@ -32,6 +32,14 @@ services:
       retries: 5
       start_period: 20s
       timeout: 10s
+  newservice:
+    image: newservice_microservice
+    healthcheck:
+      test: curl --fail http://localhost/api/newservice%7C%7C exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
   haproxy:
     image: jh7939/microservices:haproxy
     ports:
@@ -40,7 +48,6 @@ services:
       - "5555:5555"
     volumes:
       - "./haproxy:/usr/local/etc/haproxy:rw"
-
 networks:
   default:
     driver: bridge
