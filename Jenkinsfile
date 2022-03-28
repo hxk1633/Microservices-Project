@@ -90,85 +90,83 @@ pipeline{
 
 
                 obtainChanges()
-                // echo folders
-                // echo folders_new
             }
         }
-        // stage('Microservice Build and upload Docker image'){
-        //     steps{
-        //         script{
-        //             if(env.folders != ''){
-        //                 def arr = env.folders.split(',')
-        //                 for(int i = 0; i <arr.length; i++){
-        //                     dir("${directory}${arr[i]}"){
-        //                         echo arr[i]
-        //                         dockerName = "${registry}${arr[i]}_microservice"
-        //                         dockerImage = docker.build dockerName
-        //                         docker.withRegistry('', registryCredential){
-        //                             dockerImage.push()
-        //                         }
-        //                     }
-        //                 }
-        //             }
+        stage('Microservice Build and upload Docker image'){
+            steps{
+                script{
+                    if(env.folders != ''){
+                        def arr = env.folders.split(',')
+                        for(int i = 0; i <arr.length; i++){
+                            dir("${directory}${arr[i]}"){
+                                echo arr[i]
+                                dockerName = "${registry}${arr[i]}_microservice"
+                                dockerImage = docker.build dockerName
+                                docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                                }
+                            }
+                        }
+                    }
 
-        //             if(env.folders_new != ''){
-        //                 def arr_new = env.folders_new.split(',')
-        //                 for(int i = 0; i <arr_new.length; i++){
-        //                     dir("${directory}${arr_new[i]}"){
-        //                         echo arr_new[i]
-        //                         dockerName = "${registry}${arr_new[i]}_microservice"
-        //                         dockerImage = docker.build dockerName
-        //                         docker.withRegistry('', registryCredential){
-        //                             dockerImage.push()
-        //                         }
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Microservice task'){
-        //     steps{
-        //         script{
-        //             if(env.folders != ''){
-        //                   dir("./microservices"){
-        //                     flag = "edit"
-        //                     sh "bash sshlogin.sh ${env.folders} ${flag}" 
-        //                 }
-        //             }
-        //             if(env.folders_new != ''){
-        //                   dir("./microservices"){
-        //                     flag_new = "new"
-        //                     sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Monolithic detect changes, build ,and push images'){
-        //     when{
-        //         changeset "monolithic-app/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir("monolithic-app"){
-        //                 dockerImage = docker.build registry_mono
-        //                 docker.withRegistry('', registryCredential){
-        //                             dockerImage.push()
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Monolithic task'){
-        //     when{
-        //         changeset "monolithic-app/*"
-        //     }
-        //     steps{
-        //         dir("monolithic-app"){
-        //             sh "bash sshlogin.sh"
-        //         }
-        //     }
-        // }
+                    if(env.folders_new != ''){
+                        def arr_new = env.folders_new.split(',')
+                        for(int i = 0; i <arr_new.length; i++){
+                            dir("${directory}${arr_new[i]}"){
+                                echo arr_new[i]
+                                dockerName = "${registry}${arr_new[i]}_microservice"
+                                dockerImage = docker.build dockerName
+                                docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage('Microservice task'){
+            steps{
+                script{
+                    if(env.folders != ''){
+                          dir("./microservices"){
+                            flag = "edit"
+                            sh "bash sshlogin.sh ${env.folders} ${flag}" 
+                        }
+                    }
+                    if(env.folders_new != ''){
+                          dir("./microservices"){
+                            flag_new = "new"
+                            sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
+                        }
+                    }
+                }
+            }
+        }
+        stage('Monolithic detect changes, build ,and push images'){
+            when{
+                changeset "monolithic-app/*"
+            }
+            steps{
+                script{
+                    dir("monolithic-app"){
+                        dockerImage = docker.build registry_mono
+                        docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                        }
+                    }
+                }
+            }
+        }
+        stage('Monolithic task'){
+            when{
+                changeset "monolithic-app/*"
+            }
+            steps{
+                dir("monolithic-app"){
+                    sh "bash sshlogin.sh"
+                }
+            }
+        }
     }
 }
