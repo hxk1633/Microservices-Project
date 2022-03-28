@@ -94,7 +94,7 @@ pipeline{
             }
             steps{
                 script{
-                    dockerImage = registry_mono
+                    dockerImage = docker.build registry_mono
                     docker.withRegistry('', registryCredential){
                                     dockerImage.push()
                     }
