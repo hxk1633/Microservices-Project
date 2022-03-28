@@ -144,6 +144,9 @@ pipeline{
         stage('Microservice task(modified)'){
             steps{
                 script{
+                    if(env.stage_image_modified == "true"){
+                        echo env.stage_image_modified
+                    }
                     if(env.folders != '' && env.stage_image_modified == "true"){
                         try{
                             dir("./microservices"){
