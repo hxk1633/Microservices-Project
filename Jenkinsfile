@@ -39,8 +39,6 @@ def obtainChanges(){
     echo folders
     env.folders =  "${folders}"
 
-    echo "tempResult: ${tempResult} "
-
     echo "folders: ${folders}"
 
 }
