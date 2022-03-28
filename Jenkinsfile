@@ -1,83 +1,64 @@
 def obtainChanges(){
-    // def arr = env.GIT_COMMIT_EMAIL.split('\n')
-    // echo "${arr.length}"
-    // result = ''
-    // def tempResult = '';
-    // def folders = '';
-    // for(int i = 0; i < arr.length;i++){
-    //     def file = arr[i]
-    //     if(file.startsWith('microservices/services/')){
-    //         result = "${result}${file},"
-    //     }
-    // }
-    // def arr_comma = result.split(",")
-    // for (int j = 0; j < arr_comma.length; j++) {
-    //         def folderDirectory = arr_comma[j].split('/')
-    //         for(int z = 0; z < folderDirectory.length; z++){
-    //         if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
-    //             tempResult = "${tempResult}${folderDirectory[z+1]} "
-    //             break
-    //         }
-    //     }
-    // }
-
-    // def resultS = tempResult.tokenize(' ')
-    // resultS = resultS.unique()
-    // for(int i = 0; i < resultS.size(); i++){
-    //     folders="${folders}${resultS[i]},"
-    // }
-    // echo folders
-    // env.folders =  "${folders}"
-    // -----------
-
+    def arr = env.modifiedFiles.split('\n')
+    echo "${arr.length}"
     result = ''
-    def changeLogSets = currentBuild.changeSets
-    for (int i = 0; i < changeLogSets.size(); i++) {
-        def entries = changeLogSets[i].items
-        for (int j = 0; j < entries.length; j++) {
-            def entry = entries[j]
-            echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
-            def files = new ArrayList(entry.affectedFiles)
-            echo "${files.size()}"
-            for (int k = 0; k < files.size(); k++) {
-                def file = files[k]
-                // if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
-                result = "${result}${file.path}\n"
-                // }
+    def tempResult = '';
+    def folders = '';
+    for(int i = 0; i < arr.length;i++){
+        def file = arr[i]
+        if(file.startsWith('microservices/services/')){
+            result = "${result}${file},"
+        }
+    }
+    def arr_comma = result.split(",")
+    for (int j = 0; j < arr_comma.length; j++) {
+            def folderDirectory = arr_comma[j].split('/')
+            for(int z = 0; z < folderDirectory.length; z++){
+            if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
+                tempResult = "${tempResult}${folderDirectory[z+1]} "
+                break
             }
         }
     }
 
-    echo result
-
-    // def tempResult = '';
-    // def folders = '';
-    // def arr = result.split(',')
-    // for (int j = 0; j < arr.length; j++) {
-    //     def folderDirectory = arr[j].split('/')
-    //     for(int z = 0; z < folderDirectory.length; z++){
-    //         if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
-    //             echo folderDirectory[z+1]
-    //             tempResult = "${tempResult}${folderDirectory[z+1]} "
-    //             break
-    //         }
-    //     }
-    //     // tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
-    // }
-
-    // def resultS = tempResult.tokenize(' ')
-    // resultS = resultS.unique()
-    // for(int i = 0; i < resultS.size(); i++){
-    //     folders="${folders}${resultS[i]},"
-    // }
-    // echo folders
-    // env.folders =  "${folders}"
+    def resultS = tempResult.tokenize(' ')
+    resultS = resultS.unique()
+    for(int i = 0; i < resultS.size(); i++){
+        folders="${folders}${resultS[i]},"
+    }
+    echo folders
+    env.folders =  "${folders}"
 
 
-    // // echo "result_new: ${result}"
-    // // echo "tempResult_new: ${tempResult} "
-    // echo "folders: ${folders}"
+    def arr_new = env.addFiles.split('\n')
+    echo "${arr_new.length}"
+    result_new = ''
+    def tempResult_new = '';
+    def folders_new = '';
+    for(int i = 0; i < arr_new.length;i++){
+        def file_new = arr_new[i]
+        if(file_new.startsWith('microservices/services/')){
+            result_new = "${result_new}${file_new},"
+        }
+    }
+    def arr_comma_new = result_new.split(",")
+    for (int j = 0; j < arr_comma_new.length; j++) {
+            def folderDirectory_new = arr_comma_new[j].split('/')
+            for(int z = 0; z < folderDirectory_new.length; z++){
+            if(folderDirectory_new[z] == "services" && z+1 < folderDirectory_new.length && folderDirectory_new[z+1] != ".DS_Store"){
+                tempResult_new = "${tempResult_new}${folderDirectory_new[z+1]} "
+                break
+            }
+        }
+    }
 
+    def resultS_new = tempResult_new.tokenize(' ')
+    resultS_new = resultS_new.unique()
+    for(int i = 0; i < resultS_new.size(); i++){
+        folders_new="${folders_new}${resultS_new[i]},"
+    }
+    echo folders_new
+    env.folders_new =  "${folders_new}"
 }
 
 pipeline{
@@ -100,8 +81,11 @@ pipeline{
         stage('Microservice detect change'){
             steps{
                 script{
-                    env.GIT_COMMIT_EMAIL = sh (
-                        script: 'git diff --diff-filter=AM --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
+                    env.addFiles = sh (
+                        script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
+                        returnStdout: true).trim()
+                    env.modifiedFiles = sh (
+                        script: 'git diff --diff-filter=M --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
                         returnStdout: true).trim()
                 }
 
