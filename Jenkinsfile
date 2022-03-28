@@ -96,7 +96,7 @@ pipeline{
                         try{
                             def arr = env.folders.split(',')
                             for(int i = 0; i <arr.length; i++){
-                                dir("${directory}${arr[j]}"){
+                                dir("${directory}${arr[i]}"){
                                     dockerName = "${registry}${arr[i]}_microservice"
                                     dockerImage = docker.build dockerName
                                     docker.withRegistry('', registryCredential){
@@ -116,29 +116,36 @@ pipeline{
             steps{
                 script{
                     if(env.folders_new != ''){
-                        def arr_new = env.folders_new.split(',')
-                        for(int i = 0; i <arr_new.length; i++){
-                            dir("${directory}${arr_new[i]}"){
-                                echo arr_new[i]
-                                dockerName = "${registry}${arr_new[i]}_microservice"
-                                dockerImage = docker.build dockerName
-                                docker.withRegistry('', registryCredential){
-                                    dockerImage.push()
+                        try{
+                            def arr_new = env.folders_new.split(',')
+                            for(int i = 0; i <arr_new.length; i++){
+                                dir("${directory}${arr_new[i]}"){
+                                    echo arr_new[i]
+                                    dockerName = "${registry}${arr_new[i]}_microservice"
+                                    dockerImage = docker.build dockerName
+                                    docker.withRegistry('', registryCredential){
+                                        dockerImage.push()
+                                        }
+                                    }
                                 }
-                            }
+                        } catch(Exception e){
+                            echo "Microservice Build and upload Docker image(add) failed"
                         }
                     }
-
                 }
             }
         }
-        stage('Microservice task (modified)'){
+        stage('Microservice task(modified)'){
             steps{
                 script{
                     if(env.folders != ''){
-                          dir("./microservices"){
-                            flag = "edit"
-                            sh "bash sshlogin.sh ${env.folders} ${flag}" 
+                        try{
+                            dir("./microservices"){
+                                flag = "edit"
+                                sh "bash sshlogin.sh ${env.folders} ${flag}" 
+                            }
+                        }catch(Exception e){
+                            echo "Microservice task(modified) failed"
                         }
                     }
                 }
@@ -148,9 +155,13 @@ pipeline{
             steps{
                 script{
                     if(env.folders_new != ''){
-                          dir("./microservices"){
-                            flag_new = "new"
-                            sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
+                        try{
+                            dir("./microservices"){
+                                flag_new = "new"
+                                sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
+                            }
+                        }catch(Exception e){
+                            echo "Microservice task(add) failed"
                         }
                     }
                 }
