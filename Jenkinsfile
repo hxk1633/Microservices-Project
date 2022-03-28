@@ -74,6 +74,7 @@ pipeline{
         stage('Microservice detect change'){
             steps{
                 obtainChanges()
+                echo folders_new
             }
         }
         stage('Microservice Build and upload Docker image'){
