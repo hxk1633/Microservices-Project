@@ -11,7 +11,6 @@ def obtainChanges(){
                 def file = files[k]
                 if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
-                    // ${file.editType.name} 
                 }
             }
         }
@@ -41,11 +40,7 @@ pipeline{
         dockerImage = ''
         directory = './microservices/services/'
         registry = 'jh7939/microservices:'
-        registry1 = 'jh7939/microservices:comments_microservice' 
-        registry2 = 'jh7939/microservices:posts_microservice' 
-        registry3 = 'jh7939/microservices:threads_microservice'
-        registry4 = 'jh7939/microservices:users_microservice'
-        registry5 = 'jh7939/microservices:my-haproxy'
+        registry_mono = 'jh7939/monolithic:monolithic-app'
         registryCredential = 'dockerhub_id'
     }
     
@@ -53,12 +48,13 @@ pipeline{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-                obtainChanges()
             }
+        }
+        stage('Microservice detect change'){
+            obtainChanges()
         }
         stage('Microservice Build and upload Docker image'){
             steps{
-
                 script{
                     if(env.folders != ''){
                         def arr = env.folders.split(',')
@@ -86,6 +82,19 @@ pipeline{
                                 sh "bash sshlogin.sh ${folderNames[i]}"
                             }
                         }
+                    }
+                }
+            }
+        }
+        stage('Monolithic detect changes'){
+            when{
+                changeSets "monolithic-app"
+            }
+            steps{
+                script{
+                    dockerImage = registry_mono
+                    docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
                     }
                 }
             }
