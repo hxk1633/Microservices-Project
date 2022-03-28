@@ -68,6 +68,8 @@ pipeline{
         registry = 'jh7939/microservices:'
         registry_mono = 'jh7939/monolithic:monolithic-app'
         registryCredential = 'dockerhub_id'
+        stage_image_modified = "true"
+        stage_image_add = "true"
     }
     
     stages{
@@ -105,7 +107,8 @@ pipeline{
                                 }
                             }
                         }catch(Exception e){
-                            echo "Caught: ${e}"
+                            echo "Microservice Build and upload Docker image(modified) failed"
+                            env.stage_image_modified = "false"
                             currentBuild.result = 'FAILURE'
                         }
                     }
@@ -131,6 +134,8 @@ pipeline{
                                 }
                         } catch(Exception e){
                             echo "Microservice Build and upload Docker image(add) failed"
+                            env.stage_image_add = "false"
+                            currentBuild.result = 'FAILURE'
                         }
                     }
                 }
@@ -139,7 +144,7 @@ pipeline{
         stage('Microservice task(modified)'){
             steps{
                 script{
-                    if(env.folders != ''){
+                    if(env.folders != '' && env.stage_image_modified == "true"){
                         try{
                             dir("./microservices"){
                                 flag = "edit"
@@ -155,7 +160,7 @@ pipeline{
         stage('Microservice task (add)'){
             steps{
                 script{
-                    if(env.folders_new != ''){
+                    if(env.folders_new != '' && env.stage_image_add == "true"){
                         try{
                             dir("./microservices"){
                                 flag_new = "new"
