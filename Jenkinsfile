@@ -116,11 +116,9 @@ pipeline{
         stage('print task'){
             steps{
                 script{
-                    dir("./microservices"){
-                        def folderNames = env.folders.split(',')
-                        for(int i = 0; i < folderNames.length; i++){
-                            echo ${folderNames[i]}
-                        }
+                    def folderNames = env.folders.split(',')
+                    for(int i = 0; i < folderNames.length; i++){
+                        echo folderNames[i]
                     }
                 }
                     // sh "bash sshlogin.sh ${env.folders}"
