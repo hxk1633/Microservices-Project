@@ -1,6 +1,4 @@
-def obtainChanges(){
     result = ''
-    result_new = ''
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
         def entries = changeLogSets[i].items
@@ -13,65 +11,28 @@ def obtainChanges(){
                 if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
                 }
-                // if(file.editType.name == "edit" && file.path.startsWith('microservices/services/')){
-                //     result = "${result}${file.path},"
-                // }
-                // if(file.editType.name == "add" && file.path.startsWith('microservices/services/')){
-                //     result_new = "${result_new}${file.path},"
-                // }
             }
         }
     }
-
-    echo "result: ${result}"
-
     def tempResult = '';
     def folders = '';
     def arr = result.split(',')
     for (int j = 0; j < arr.length; j++) {
         def folderDirectory = arr[j].split('/')
-        for(int k = 0; k < folderDirectory.length; k++){
-            if(folderDirectory[k] == "services" && k+1 < folderDirectory.length && folderDirectory[k+1] != ".DS_Store"){
-                tempResult = "${tempResult}${folderDirectory[k+1]} "
-            }
-        }
+        tempResult = "${tempResult}${folderDirectory[folderDirectory.length-2]} "
     }
-
-    echo "tempResult: ${tempResult} "
     def resultS = tempResult.tokenize(' ')
     resultS = resultS.unique()
     for(int i = 0; i < resultS.size(); i++){
         folders="${folders}${resultS[i]},"
     }
+    echo folders
     env.folders =  "${folders}"
 
-    echo "folders: ${folders}"
+    echo "result: ${result_new}"
+    echo "tempResult: ${tempResult_new} "
 
-
-    // def tempResult_new = '';
-    // def folders_new = '';
-    // def arr_new = result_new.split(',')
-    // for (int j = 0; j < arr_new.length; j++) {
-    //     def folderDirectory_new = arr_new[j].split('/')
-    //     for(int k = 0; k < folderDirectory_new.length; k++){
-    //         if(folderDirectory_new[k] == "services" && k+1 < folderDirectory_new.length && folderDirectory_new[k+1] != ".DS_Store"){
-    //             tempResult_new = "${tempResult_new}${folderDirectory_new[k+1]} "
-    //         }
-    //     }
-    // }
-    // def resultS_new = tempResult_new.tokenize(' ')
-    // resultS_new = resultS_new.unique()
-    // for(int i = 0; i < resultS_new.size(); i++){
-    //     folders_new="${folders_new}${resultS_new[i]},"
-    // }
-    // env.folders_new =  "${folders_new}"
-
-
-    // echo "result_new: ${result_new}"
-    // echo "tempResult_new: ${tempResult_new} "
-
-    // echo "folders_new: ${folders_new}"
-
+    echo "folders: ${folders_new}"
 
 }
 
