@@ -3,6 +3,7 @@ def obtainChanges(){
     echo "${arr.length}"
     result = ''
     def tempResult = '';
+    def folders = '';
     for(int i = 0; i < arr.length;i++){
         def file = arr[i]
         if(file.startsWith('microservices/services/')){
