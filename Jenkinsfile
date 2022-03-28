@@ -59,6 +59,7 @@ pipeline{
         stage('Microservice Build and upload Docker image'){
             steps{
                 script{
+                    echo env.folders
                     def arr = env.folders.split(',')
                     for(int i = 0; i <arr.length; i++){
                         dir("${directory}${arr[i]}"){
