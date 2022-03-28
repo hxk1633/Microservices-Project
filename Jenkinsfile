@@ -1,36 +1,23 @@
 def obtainChanges(){
-    // result = ''
-    // def changeLogSets = currentBuild.changeSets
-    // for (int i = 0; i < changeLogSets.size(); i++) {
-    //     def entries = changeLogSets[i].items
-    //     for (int j = 0; j < entries.length; j++) {
-    //         def entry = entries[j]
-    //         echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
-    //         def files = new ArrayList(entry.affectedFiles)
-    //         echo "${files.size()}"
-    //         for (int k = 0; k < files.size(); k++) {
-    //             def file = files[k]
-    //             // if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
-    //             result = "${result}${file.path}\n"
-    //             // }
-    //         }
-    //     }
-    // }
-
-    // echo result
-    def files = [] as Set // as Set assumes uniqueness
-    passedBuilds.each {
-        def changeLogSets = it.rawBuild.changeSets
-        changeLogSets.each {
-            it.items.each {
-                it.affectedFiles.each {
-                    files.add(it.path)
-                }
+    result = ''
+    def changeLogSets = currentBuild.changeSets
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length; j++) {
+            def entry = entries[j]
+            echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+            def files = new ArrayList(entry.affectedFiles)
+            echo "${files.size()}"
+            for (int k = 0; k < files.size(); k++) {
+                def file = files[k]
+                // if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
+                result = "${result}${file.path}\n"
+                // }
             }
         }
     }
-    echo "Found changes in files: ${files}"
-    echo "${files.size()}"
+
+    echo result
 
 
     // def tempResult = '';
