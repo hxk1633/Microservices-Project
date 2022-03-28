@@ -7,10 +7,11 @@ def obtainChanges(){
             def entry = entries[j]
             echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
             def files = new ArrayList(entry.affectedFiles)
+            echo files.size()
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
                 // if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
-                result = "${result}${file.path},"
+                result = "${result}${file.path}\n"
                 // }
             }
         }
