@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 sshpass -p '2446592ny' ssh -T jianhe@192.168.2.13<< EOF
     echo $1
-    IFS=', ' read -r TASKS <<< $1
+    IFS=',' read -r TASKS <<< $1
 
     for i in "${TASKS[@]}"; do
         echo $i
