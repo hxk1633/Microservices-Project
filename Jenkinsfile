@@ -11,6 +11,7 @@ def obtainChanges(){
                 def file = files[k]
                 if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
+                    // ${file.editType.name} 
                 }
             }
         }
@@ -52,10 +53,6 @@ pipeline{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
-            }
-        }
-        stage('Microservice detect changes'){
-            steps{
                 obtainChanges()
             }
         }
