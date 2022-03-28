@@ -5,7 +5,7 @@ def obtainChanges(){
     def tempResult = '';
     for(int i = 0; i < arr.length;i++){
         def file = arr[i]
-        if(file.startsWith('microservices/services/'){
+        if(file.startsWith('microservices/services/')){
             result = "${result}${file},"
         }
     }
