@@ -5,5 +5,4 @@ sshpass -p '2446592ny' ssh -T jianhe@192.168.2.13<< EOF
     echo $1
     # docker pull jh7939/microservices:$1_microservice
     # bash update_containers.sh $1 4
-    done
 EOF
