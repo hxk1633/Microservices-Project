@@ -21,9 +21,6 @@ def obtainChanges(){
         }
     }
 
-    echo result_new
-    echo "hello"
-
     def tempResult = '';
     def folders = '';
     def arr = result.split(',')
@@ -52,15 +49,12 @@ def obtainChanges(){
     for(int i = 0; i < resultS_new.size(); i++){
         folders_new="${folders_new}${resultS_new[i]},"
     }
-    echo folders_new
     env.folders_new =  "${folders_new}"
 }
 
 pipeline{
     
     agent any
-    
-    
     environment{
         dockerImage = ''
         directory = './microservices/services/'
@@ -78,7 +72,6 @@ pipeline{
         stage('Microservice detect change'){
             steps{
                 obtainChanges()
-                echo folders_new
             }
         }
         stage('Microservice Build and upload Docker image'){
@@ -97,26 +90,40 @@ pipeline{
                             }
                         }
                     }
-                }
-            }
-        }
-        stage('Microservice task'){
-            steps{
-                script{
-                    if(env.folders != ''){
-                          dir("./microservices"){
-                            sh "bash sshlogin.sh ${env.folders}"
+
+                    if(env.folders_new != ''){
+                        def arr_new = env.folders_new.split(',')
+                        for(int i = 0; i <arr_new.length; i++){
+                            dir("${directory}${arr_new[i]}"){
+                                echo arr_new[i]
+                                dockerName = "${registry}${arr_new[i]}_microservice"
+                                dockerImage = docker.build dockerName
+                                docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                                }
+                            }
                         }
-                        // def folderNames = env.folders.split(',')
-                        // dir("./microservices"){
-                        //     for(int i = 0; i < folderNames.length; i++){
-                        //         sh "bash sshlogin.sh ${folderNames[i]}"
-                        //     }
-                        // }
                     }
                 }
             }
         }
+        // stage('Microservice task'){
+        //     steps{
+        //         script{
+        //             if(env.folders != ''){
+        //                   dir("./microservices"){
+        //                     sh "bash sshlogin.sh ${env.folders}"
+        //                 }
+        //                 // def folderNames = env.folders.split(',')
+        //                 // dir("./microservices"){
+        //                 //     for(int i = 0; i < folderNames.length; i++){
+        //                 //         sh "bash sshlogin.sh ${folderNames[i]}"
+        //                 //     }
+        //                 // }
+        //             }
+        //         }
+        //     }
+        // }
         stage('Monolithic detect changes, build ,and push images'){
             when{
                 changeset "monolithic-app/*"
