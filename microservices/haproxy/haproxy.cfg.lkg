@@ -1,5 +1,5 @@
-# _md5hash=2c06afedd0b6d4a780c18cd2c450d7d6
-# _version=15
+# _md5hash=9689591b0c1777ca50f01ac04045e0b4
+# _version=30
 # Dataplaneapi managed File
 # changing file directly can cause a conflict if dataplaneapi is running
 
@@ -24,6 +24,21 @@ resolvers docker
 
 frontend api_gateway
   bind :80
+  acl PATH_users path_beg -i /api/users
+  acl PATH_comments path_beg -i /api/comments
+  acl PATH_newservice path_beg -i /api/newservice
+  acl PATH_threads path_beg -i /api/threads
+  acl PATH_posts path_beg -i /api/posts
+  acl PATH_posts path_beg -i /api/posts
+  acl PATH_comments path_beg -i /api/comments
+  acl PATH_users path_beg -i /api/users
+  acl PATH_newservice path_beg -i /api/newservice
+  acl PATH_threads path_beg -i /api/threads
+  acl PATH_newservice path_beg -i /api/newservice
+  acl PATH_comments path_beg -i /api/comments
+  acl PATH_threads path_beg -i /api/threads
+  acl PATH_posts path_beg -i /api/posts
+  acl PATH_users path_beg -i /api/users
   acl PATH_newservice path_beg -i /api/newservice
   acl PATH_newservice path_beg -i /api/newservice
   acl PATH_posts path_beg -i /api/posts
@@ -42,6 +57,21 @@ frontend api_gateway
   acl PATH_threads path_beg -i /api/threads
   acl PATH_posts path_beg -i /api/posts
   acl PATH_comments path_beg -i /api/comments
+  use_backend be_users if PATH_users
+  use_backend be_comments if PATH_comments
+  use_backend be_newservice if PATH_newservice
+  use_backend be_threads if PATH_threads
+  use_backend be_posts if PATH_posts
+  use_backend be_posts if PATH_posts
+  use_backend be_comments if PATH_comments
+  use_backend be_users if PATH_users
+  use_backend be_newservice if PATH_newservice
+  use_backend be_threads if PATH_threads
+  use_backend be_newservice if PATH_newservice
+  use_backend be_comments if PATH_comments
+  use_backend be_threads if PATH_threads
+  use_backend be_posts if PATH_posts
+  use_backend be_users if PATH_users
   use_backend be_newservice if PATH_newservice
   use_backend be_newservice if PATH_newservice
   use_backend be_posts if PATH_posts
