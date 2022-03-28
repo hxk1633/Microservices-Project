@@ -119,8 +119,8 @@ pipeline{
                     def folderNames = env.folders.split(',')
                     dir("./microservices"){
                         for(int i = 0; i < folderNames.length; i++){
-                                echo folderNames[i]
-                            }
+                            sh "bash sshlogin.sh ${folderNames[i]}"
+                        }
                     }
                 }
                     // sh "bash sshlogin.sh ${env.folders}"
