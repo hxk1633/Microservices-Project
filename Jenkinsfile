@@ -94,6 +94,7 @@ pipeline{
                 script{
                     if(env.folders != ''){
                         try{
+                            echo env.exc
                             def arr = env.folders.split(',')
                             for(int i = 0; i <arr.length; i++){
                                 dir("${directory}${arr[i]}"){
