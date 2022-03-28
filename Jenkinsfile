@@ -52,7 +52,7 @@ pipeline{
         }
         stage('Microservice detect change'){
             when{
-                cahngeset "microservices/*"
+                changeset "microservices/*"
             }
             steps{
                 obtainChanges()
