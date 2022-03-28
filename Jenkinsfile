@@ -1,5 +1,6 @@
 def obtainChanges(){
     def arr = env.GIT_COMMIT_EMAIL.split('\n')
+    echo "${arr.length}"
     for(int i = 0; i < arr.length;i++){
         echo arr[i]
     }
