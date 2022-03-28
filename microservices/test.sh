@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-IFS=','  read -A FOLDERS <<< $1  
+IFS=','  read -ra FOLDERS <<< $1  
 for i in "$FOLDERS[@]"; do  
     echo "$i"
     echo "hello"
