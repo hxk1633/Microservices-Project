@@ -91,30 +91,30 @@ pipeline{
                 }
             }
         }
-        // stage('Monolithic detect changes, build ,and push images'){
-        //     when{
-        //         changeset "monolithic-app/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir("monolithic-app"){
-        //                 dockerImage = docker.build registry_mono
-        //                 docker.withRegistry('', registryCredential){
-        //                             dockerImage.push()
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Monolithic task'){
-        //     when{
-        //         changeset "monolithic-app/*"
-        //     }
-        //     steps{
-        //         dir("monolithic-app"){
-        //             sh "bash sshlogin.sh"
-        //         }
-        //     }
-        // }
+        stage('Monolithic detect changes, build ,and push images'){
+            when{
+                changeset "monolithic-app/*"
+            }
+            steps{
+                script{
+                    dir("monolithic-app"){
+                        dockerImage = docker.build registry_mono
+                        docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                        }
+                    }
+                }
+            }
+        }
+        stage('Monolithic task'){
+            when{
+                changeset "monolithic-app/*"
+            }
+            steps{
+                dir("monolithic-app"){
+                    sh "bash sshlogin.sh"
+                }
+            }
+        }
     }
 }
