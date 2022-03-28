@@ -31,31 +31,32 @@ def obtainChanges(){
             }
         }
     }
-    def resultS = tempResult.tokenize(' ')
-    resultS = resultS.unique()
-    for(int i = 0; i < resultS.size(); i++){
-        folders="${folders}${resultS[i]},"
-    }
-    env.folders =  "${folders}"
+    echo tempResult
+    // def resultS = tempResult.tokenize(' ')
+    // resultS = resultS.unique()
+    // for(int i = 0; i < resultS.size(); i++){
+    //     folders="${folders}${resultS[i]},"
+    // }
+    // env.folders =  "${folders}"
 
 
-    def tempResult_new = '';
-    def folders_new = '';
-    def arr_new = result_new.split(',')
-    for (int j = 0; j < arr_new.length; j++) {
-        def folderDirectory_new = arr_new[j].split('/')
-        for(int k = 0; k < folderDirectory_new.length; k++){
-            if(folderDirectory_new[k] == "services" && k+1 < folderDirectory_new.length && folderDirectory_new[k+1] != ".DS_Store"){
-                tempResult_new = "${tempResult_new}${folderDirectory_new[k+1]} "
-            }
-        }
-    }
-    def resultS_new = tempResult_new.tokenize(' ')
-    resultS_new = resultS_new.unique()
-    for(int i = 0; i < resultS_new.size(); i++){
-        folders_new="${folders_new}${resultS_new[i]},"
-    }
-    env.folders_new =  "${folders_new}"
+    // def tempResult_new = '';
+    // def folders_new = '';
+    // def arr_new = result_new.split(',')
+    // for (int j = 0; j < arr_new.length; j++) {
+    //     def folderDirectory_new = arr_new[j].split('/')
+    //     for(int k = 0; k < folderDirectory_new.length; k++){
+    //         if(folderDirectory_new[k] == "services" && k+1 < folderDirectory_new.length && folderDirectory_new[k+1] != ".DS_Store"){
+    //             tempResult_new = "${tempResult_new}${folderDirectory_new[k+1]} "
+    //         }
+    //     }
+    // }
+    // def resultS_new = tempResult_new.tokenize(' ')
+    // resultS_new = resultS_new.unique()
+    // for(int i = 0; i < resultS_new.size(); i++){
+    //     folders_new="${folders_new}${resultS_new[i]},"
+    // }
+    // env.folders_new =  "${folders_new}"
 }
 
 pipeline{
