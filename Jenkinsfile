@@ -51,27 +51,23 @@ pipeline{
             }
         }
         stage('Microservice detect change'){
-            when{
-                changeset "microservices/*"
-            }
             steps{
                 obtainChanges()
             }
         }
         stage('Microservice Build and upload Docker image'){
-            when{
-                changeset "microservices/*"
-            }
             steps{
                 script{
-                    def arr = env.folders.split(',')
-                    for(int i = 0; i <arr.length; i++){
-                        dir("${directory}${arr[i]}"){
-                            echo arr[i]
-                            dockerName = "${registry}${arr[i]}_microservice"
-                            dockerImage = docker.build dockerName
-                            docker.withRegistry('', registryCredential){
-                                dockerImage.push()
+                    if(env.folders != ''){
+                        def arr = env.folders.split(',')
+                        for(int i = 0; i <arr.length; i++){
+                            dir("${directory}${arr[i]}"){
+                                echo arr[i]
+                                dockerName = "${registry}${arr[i]}_microservice"
+                                dockerImage = docker.build dockerName
+                                docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                                }
                             }
                         }
                     }
@@ -79,15 +75,14 @@ pipeline{
             }
         }
         stage('Microservice task'){
-            when{
-                changeset "microservices/*"
-            }
             steps{
                 script{
-                    def folderNames = env.folders.split(',')
-                    dir("./microservices"){
-                        for(int i = 0; i < folderNames.length; i++){
-                            sh "bash sshlogin.sh ${folderNames[i]}"
+                    if(env.folders != ''){
+                        def folderNames = env.folders.split(',')
+                        dir("./microservices"){
+                            for(int i = 0; i < folderNames.length; i++){
+                                sh "bash sshlogin.sh ${folderNames[i]}"
+                            }
                         }
                     }
                 }
