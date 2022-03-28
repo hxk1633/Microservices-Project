@@ -116,7 +116,7 @@ pipeline{
         stage('print task'){
             steps{
                 dir("./microservices"){
-                    sh "bash test.sh ${env.folders}"
+                    sh "bash sshlogin.sh ${env.folders}"
                 }
             }
         }
