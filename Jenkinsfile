@@ -105,7 +105,8 @@ pipeline{
                                 }
                             }
                         }catch(Exception e){
-                            unstable{echo "Microservice Build and upload Docker image(modified) failed"}
+                            echo "Caught: ${e}"
+                            currentBuild.result = 'FAILURE'
                         }
                     }
                 }
