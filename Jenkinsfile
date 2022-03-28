@@ -1,6 +1,5 @@
 def obtainChanges(){
     def arr = env.modifiedFiles.split('\n')
-    echo "${arr.length}"
     result = ''
     def tempResult = '';
     def folders = '';
@@ -26,12 +25,11 @@ def obtainChanges(){
     for(int i = 0; i < resultS.size(); i++){
         folders="${folders}${resultS[i]},"
     }
-    echo folders
+    echo "modified: ${folders}"
     env.folders =  "${folders}"
 
 
     def arr_new = env.addFiles.split('\n')
-    echo "${arr_new.length}"
     result_new = ''
     def tempResult_new = '';
     def folders_new = '';
@@ -57,7 +55,7 @@ def obtainChanges(){
     for(int i = 0; i < resultS_new.size(); i++){
         folders_new="${folders_new}${resultS_new[i]},"
     }
-    echo folders_new
+    echo "new: ${folders_new}"
     env.folders_new =  "${folders_new}"
 }
 
