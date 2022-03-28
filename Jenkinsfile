@@ -96,7 +96,7 @@ pipeline{
                         try{
                             def arr = env.folders.split(',')
                             for(int i = 0; i <arr.length; i++){
-                                dir("${directory}${arr[i]}"){
+                                dir("${directory}${arr[j]}"){
                                     dockerName = "${registry}${arr[i]}_microservice"
                                     dockerImage = docker.build dockerName
                                     docker.withRegistry('', registryCredential){
@@ -105,7 +105,7 @@ pipeline{
                                 }
                             }
                         }catch(Exception e){
-                            echo "Microservice Build and upload Docker image(modified) failed"
+                            unstable{echo "Microservice Build and upload Docker image(modified) failed"}
                         }
                     }
                 }
