@@ -10,7 +10,8 @@ def obtainChanges(){
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                if(file.editType.name == "modified" && file.path.startsWith('microservices/services/')){
+                echo file.editType.name
+                if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
                     result = "${result}${file.path},"
                 }
             }
