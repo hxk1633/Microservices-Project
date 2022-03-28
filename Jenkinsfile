@@ -1,53 +1,54 @@
 def obtainChanges(){
-    def arr = env.GIT_COMMIT_EMAIL.split('\n')
-    echo "${arr.length}"
-    result = ''
-    def tempResult = '';
-    def folders = '';
-    for(int i = 0; i < arr.length;i++){
-        def file = arr[i]
-        if(file.startsWith('microservices/services/')){
-            result = "${result}${file},"
-        }
-    }
-    def arr_comma = result.split(",")
-    for (int j = 0; j < arr_comma.length; j++) {
-            def folderDirectory = arr_comma[j].split('/')
-            for(int z = 0; z < folderDirectory.length; z++){
-            if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
-                tempResult = "${tempResult}${folderDirectory[z+1]} "
-                break
-            }
-        }
-    }
-
-    def resultS = tempResult.tokenize(' ')
-    resultS = resultS.unique()
-    for(int i = 0; i < resultS.size(); i++){
-        folders="${folders}${resultS[i]},"
-    }
-    echo folders
-    env.folders =  "${folders}"
-
+    // def arr = env.GIT_COMMIT_EMAIL.split('\n')
+    // echo "${arr.length}"
     // result = ''
-    // def changeLogSets = currentBuild.changeSets
-    // for (int i = 0; i < changeLogSets.size(); i++) {
-    //     def entries = changeLogSets[i].items
-    //     for (int j = 0; j < entries.length; j++) {
-    //         def entry = entries[j]
-    //         echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
-    //         def files = new ArrayList(entry.affectedFiles)
-    //         echo "${files.size()}"
-    //         for (int k = 0; k < files.size(); k++) {
-    //             def file = files[k]
-    //             // if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
-    //             result = "${result}${file.path}\n"
-    //             // }
+    // def tempResult = '';
+    // def folders = '';
+    // for(int i = 0; i < arr.length;i++){
+    //     def file = arr[i]
+    //     if(file.startsWith('microservices/services/')){
+    //         result = "${result}${file},"
+    //     }
+    // }
+    // def arr_comma = result.split(",")
+    // for (int j = 0; j < arr_comma.length; j++) {
+    //         def folderDirectory = arr_comma[j].split('/')
+    //         for(int z = 0; z < folderDirectory.length; z++){
+    //         if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
+    //             tempResult = "${tempResult}${folderDirectory[z+1]} "
+    //             break
     //         }
     //     }
     // }
 
-    // echo result
+    // def resultS = tempResult.tokenize(' ')
+    // resultS = resultS.unique()
+    // for(int i = 0; i < resultS.size(); i++){
+    //     folders="${folders}${resultS[i]},"
+    // }
+    // echo folders
+    // env.folders =  "${folders}"
+    // -----------
+
+    result = ''
+    def changeLogSets = currentBuild.changeSets
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length; j++) {
+            def entry = entries[j]
+            echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+            def files = new ArrayList(entry.affectedFiles)
+            echo "${files.size()}"
+            for (int k = 0; k < files.size(); k++) {
+                def file = files[k]
+                // if(file.editType.name != "delete" && file.path.startsWith('microservices/services/')){
+                result = "${result}${file.path}\n"
+                // }
+            }
+        }
+    }
+
+    echo result
 
     // def tempResult = '';
     // def folders = '';
