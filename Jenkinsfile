@@ -112,7 +112,8 @@ pipeline{
                 script{
                     if(env.folders != ''){
                           dir("./microservices"){
-                            sh "bash sshlogin.sh ${env.folders} edit" 
+                            flag = "edit"
+                            sh "bash sshlogin.sh ${env.folders} ${flag}" 
                         }
                         // def folderNames = env.folders.split(',')
                         // dir("./microservices"){

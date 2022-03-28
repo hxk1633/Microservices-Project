@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-if[$2 == "edit"]; then
+if[$2 = "edit"]; then
     echo "hello"
 fi
 # cd /Users/jianhe/Documents/GitHub/Microservices-Project/microservices/
