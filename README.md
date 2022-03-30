@@ -10,4 +10,12 @@
 ## Stop Microservices
 `docker-compose down`
 
-##
+## Download Jenkins
+download "jenkins.war" from Jenkins website
+
+## Start Jenkins
+'java -jar jenkins.war"
+
+## Go to port 8080 for Jenkins service
+'localhost:8080'
+
