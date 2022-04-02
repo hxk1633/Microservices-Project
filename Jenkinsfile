@@ -68,8 +68,6 @@ pipeline{
         registry = 'jh7939/microservices:'
         registry_mono = 'jh7939/monolithic:monolithic-app'
         registryCredential = 'dockerhub_id'
-        stage_image_modified = "true"
-        stage_image_add = "true"
     }
     
     stages{
@@ -98,7 +96,7 @@ pipeline{
                         try{
                             def arr = env.folders.split(',')
                             for(int i = 0; i <arr.length; i++){
-                                dir("${directory}${arr[j]}"){
+                                dir("${directory}${arr[i]}"){
                                     dockerName = "${registry}${arr[i]}_microservice"
                                     dockerImage = docker.build dockerName
                                     docker.withRegistry('', registryCredential){
@@ -108,7 +106,6 @@ pipeline{
                             }
                         }catch(Exception e){
                             echo "Microservice Build and upload Docker image(modified) failed"
-                            env.stage_image_modified = "false"
                             currentBuild.result = 'FAILURE'
                         }
                     }
@@ -134,7 +131,6 @@ pipeline{
                                 }
                         } catch(Exception e){
                             echo "Microservice Build and upload Docker image(add) failed"
-                            env.stage_image_add = "false"
                             currentBuild.result = 'FAILURE'
                         }
                     }
@@ -144,9 +140,6 @@ pipeline{
         stage('Microservice task(modified)'){
             steps{
                 script{
-                    if(env.stage_image_modified == "true"){
-                        echo env.stage_image_modified
-                    }
                     if(env.folders != '' && env.stage_image_modified == "true"){
                         try{
                             dir("./microservices"){
@@ -155,6 +148,7 @@ pipeline{
                             }
                         }catch(Exception e){
                             echo "Microservice task(modified) failed"
+                            currentBuild.result = 'FAILURE'
                         }
                     }
                 }
@@ -171,6 +165,7 @@ pipeline{
                             }
                         }catch(Exception e){
                             echo "Microservice task(add) failed"
+                            currentBuild.result = 'FAILURE'
                         }
                     }
                 }
