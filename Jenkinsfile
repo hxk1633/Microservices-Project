@@ -137,18 +137,13 @@ pipeline{
                 }
             }
         }
-        stage('Microservice task(modified)'){
+        stage('Microservice task (modified)'){
             steps{
                 script{
-                    if(env.folders != '' && env.stage_image_modified == "true"){
-                        try{
-                            dir("./microservices"){
-                                flag = "edit"
-                                sh "bash sshlogin.sh ${env.folders} ${flag}" 
-                            }
-                        }catch(Exception e){
-                            echo "Microservice task(modified) failed"
-                            currentBuild.result = 'FAILURE'
+                    if(env.folders != '' ){
+                        dir("./microservices"){
+                            flag = "edit"
+                            sh "bash sshlogin.sh ${env.folders} ${flag}" 
                         }
                     }
                 }
@@ -157,15 +152,10 @@ pipeline{
         stage('Microservice task (add)'){
             steps{
                 script{
-                    if(env.folders_new != '' && env.stage_image_add == "true"){
-                        try{
-                            dir("./microservices"){
-                                flag_new = "new"
-                                sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
-                            }
-                        }catch(Exception e){
-                            echo "Microservice task(add) failed"
-                            currentBuild.result = 'FAILURE'
+                    if(env.folders_new != ''){
+                        dir("./microservices"){
+                            flag_new = "new"
+                            sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
                         }
                     }
                 }
