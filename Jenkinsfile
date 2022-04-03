@@ -79,10 +79,10 @@ pipeline{
             steps{
                 script{
                     env.addFiles = sh (
-                        script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_SUCCESSFUL_COMMIT $GIT_COMMIT ',
+                        script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
                         returnStdout: true).trim()
                     env.modifiedFiles = sh (
-                        script: 'git diff --diff-filter=M --name-only $GIT_PREVIOUS_SUCCESSFUL_COMMIT $GIT_COMMIT ',
+                        script: 'git diff --diff-filter=M --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
                         returnStdout: true).trim()
                 }
                 obtainChanges()
