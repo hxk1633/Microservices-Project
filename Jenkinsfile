@@ -80,7 +80,6 @@ pipeline{
                     env.allFiles = sh(
                         script: 'git diff --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
                         returnStdout: true).trim()
-                    )
                     echo env.allFiles
                     env.addFiles = sh (
                         script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
