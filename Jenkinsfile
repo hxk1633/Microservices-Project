@@ -175,11 +175,16 @@ pipeline{
             }
             steps{
                 script{
-                    dir("monolithic-app"){
-                        dockerImage = docker.build registry_mono
-                        docker.withRegistry('', registryCredential){
-                                    dockerImage.push()
+                    try{
+                        dir("monolithic-app"){
+                            dockerImage = docker.build registry_mono
+                            docker.withRegistry('', registryCredential){
+                                        dockerImage.push()
+                            }
                         }
+                    }catch(Exception e){
+                            echo "Monolithic detect failed"
+                            currentBuild.result = 'FAILURE'
                     }
                 }
             }
@@ -189,8 +194,13 @@ pipeline{
                 changeset "monolithic-app/*"
             }
             steps{
-                dir("monolithic-app"){
-                    sh "bash sshlogin.sh"
+                try{
+                    dir("monolithic-app"){
+                        sh "bash sshlogin.sh"
+                    }
+                }catch(Exception e){
+                        echo "Monolithic task failed"
+                        currentBuild.result = 'FAILURE'
                 }
             }
         }
