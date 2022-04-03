@@ -194,13 +194,15 @@ pipeline{
                 changeset "monolithic-app/*"
             }
             steps{
-                try{
-                    dir("monolithic-app"){
+                script{
+                    try{
+                        dir("monolithic-app"){
                         sh "bash sshlogin.sh"
-                    }
-                }catch(Exception e){
+                        }
+                    }catch(Exception e){
                         echo "Monolithic task failed"
                         currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
