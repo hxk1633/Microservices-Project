@@ -169,42 +169,42 @@ pipeline{
                 }
             }
         }
-        stage('Monolithic detect changes, build ,and push images'){
-            when{
-                changeset "monolithic-app/*"
-            }
-            steps{
-                script{
-                    try{
-                        dir("monolithic-app"){
-                            dockerImage = docker.build registry_mono
-                            docker.withRegistry('', registryCredential){
-                                        dockerImage.push()
-                            }
-                        }
-                    }catch(Exception e){
-                            echo "Monolithic detect failed"
-                            currentBuild.result = 'FAILURE'
-                    }
-                }
-            }
-        }
-        stage('Monolithic task'){
-            when{
-                changeset "monolithic-app/*"
-            }
-            steps{
-                script{
-                    try{
-                        dir("monolithic-app"){
-                        sh "bash sshlogin.sh"
-                        }
-                    }catch(Exception e){
-                        echo "Monolithic task failed"
-                        currentBuild.result = 'FAILURE'
-                    }
-                }
-            }
-        }
+        // stage('Monolithic detect changes, build ,and push images'){
+        //     when{
+        //         changeset "monolithic-app/*"
+        //     }
+        //     steps{
+        //         script{
+        //             try{
+        //                 dir("monolithic-app"){
+        //                     dockerImage = docker.build registry_mono
+        //                     docker.withRegistry('', registryCredential){
+        //                                 dockerImage.push()
+        //                     }
+        //                 }
+        //             }catch(Exception e){
+        //                     echo "Monolithic detect failed"
+        //                     currentBuild.result = 'FAILURE'
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Monolithic task'){
+        //     when{
+        //         changeset "monolithic-app/*"
+        //     }
+        //     steps{
+        //         script{
+        //             try{
+        //                 dir("monolithic-app"){
+        //                 sh "bash sshlogin.sh"
+        //                 }
+        //             }catch(Exception e){
+        //                 echo "Monolithic task failed"
+        //                 currentBuild.result = 'FAILURE'
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
