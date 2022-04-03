@@ -80,6 +80,7 @@ pipeline{
                     env.addFiles = sh (
                         script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
                         returnStdout: true).trim()
+                    echo env.addFiles
                     env.modifiedFiles = sh (
                         script: 'git diff --diff-filter=M --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
                         returnStdout: true).trim()
@@ -87,102 +88,102 @@ pipeline{
                 obtainChanges()
             }
         }
-        stage('Microservice Build and upload Docker image(modified)'){
-            steps{
-                script{
-                    if(env.folders != ''){
-                        try{
-                            def arr = env.folders.split(',')
-                            for(int i = 0; i <arr.length; i++){
-                                dir("${directory}${arr[i]}"){
-                                    dockerName = "${registry}${arr[i]}_microservice"
-                                    dockerImage = docker.build dockerName
-                                    docker.withRegistry('', registryCredential){
-                                        dockerImage.push()
-                                    }
-                                }
-                            }
-                        }catch(Exception e){
-                            echo "Microservice Build and upload Docker image(modified) failed"
-                            currentBuild.result = 'FAILURE'
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Microservice Build and upload Docker image(modified)'){
+        //     steps{
+        //         script{
+        //             if(env.folders != ''){
+        //                 try{
+        //                     def arr = env.folders.split(',')
+        //                     for(int i = 0; i <arr.length; i++){
+        //                         dir("${directory}${arr[i]}"){
+        //                             dockerName = "${registry}${arr[i]}_microservice"
+        //                             dockerImage = docker.build dockerName
+        //                             docker.withRegistry('', registryCredential){
+        //                                 dockerImage.push()
+        //                             }
+        //                         }
+        //                     }
+        //                 }catch(Exception e){
+        //                     echo "Microservice Build and upload Docker image(modified) failed"
+        //                     currentBuild.result = 'FAILURE'
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Microservice Build and upload Docker image(add)'){
-            steps{
-                script{
-                    if(env.folders_new != ''){
-                        try{
-                            def arr_new = env.folders_new.split(',')
-                            for(int i = 0; i <arr_new.length; i++){
-                                dir("${directory}${arr_new[i]}"){
-                                    echo arr_new[i]
-                                    dockerName = "${registry}${arr_new[i]}_microservice"
-                                    dockerImage = docker.build dockerName
-                                    docker.withRegistry('', registryCredential){
-                                        dockerImage.push()
-                                        }
-                                    }
-                                }
-                        } catch(Exception e){
-                            echo "Microservice Build and upload Docker image(add) failed"
-                            currentBuild.result = 'FAILURE'
-                        }
-                    }
-                }
-            }
-        }
-        stage('Microservice task (modified)'){
-            steps{
-                script{
-                    if(env.folders != '' ){
-                        dir("./microservices"){
-                            flag = "edit"
-                            sh "bash sshlogin.sh ${env.folders} ${flag}" 
-                        }
-                    }
-                }
-            }
-        }
-        stage('Microservice task (add)'){
-            steps{
-                script{
-                    if(env.folders_new != ''){
-                        dir("./microservices"){
-                            flag_new = "new"
-                            sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
-                        }
-                    }
-                }
-            }
-        }
-        stage('Monolithic detect changes, build ,and push images'){
-            when{
-                changeset "monolithic-app/*"
-            }
-            steps{
-                script{
-                    dir("monolithic-app"){
-                        dockerImage = docker.build registry_mono
-                        docker.withRegistry('', registryCredential){
-                                    dockerImage.push()
-                        }
-                    }
-                }
-            }
-        }
-        stage('Monolithic task'){
-            when{
-                changeset "monolithic-app/*"
-            }
-            steps{
-                dir("monolithic-app"){
-                    sh "bash sshlogin.sh"
-                }
-            }
-        }
+        // stage('Microservice Build and upload Docker image(add)'){
+        //     steps{
+        //         script{
+        //             if(env.folders_new != ''){
+        //                 try{
+        //                     def arr_new = env.folders_new.split(',')
+        //                     for(int i = 0; i <arr_new.length; i++){
+        //                         dir("${directory}${arr_new[i]}"){
+        //                             echo arr_new[i]
+        //                             dockerName = "${registry}${arr_new[i]}_microservice"
+        //                             dockerImage = docker.build dockerName
+        //                             docker.withRegistry('', registryCredential){
+        //                                 dockerImage.push()
+        //                                 }
+        //                             }
+        //                         }
+        //                 } catch(Exception e){
+        //                     echo "Microservice Build and upload Docker image(add) failed"
+        //                     currentBuild.result = 'FAILURE'
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Microservice task (modified)'){
+        //     steps{
+        //         script{
+        //             if(env.folders != '' ){
+        //                 dir("./microservices"){
+        //                     flag = "edit"
+        //                     sh "bash sshlogin.sh ${env.folders} ${flag}" 
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Microservice task (add)'){
+        //     steps{
+        //         script{
+        //             if(env.folders_new != ''){
+        //                 dir("./microservices"){
+        //                     flag_new = "new"
+        //                     sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Monolithic detect changes, build ,and push images'){
+        //     when{
+        //         changeset "monolithic-app/*"
+        //     }
+        //     steps{
+        //         script{
+        //             dir("monolithic-app"){
+        //                 dockerImage = docker.build registry_mono
+        //                 docker.withRegistry('', registryCredential){
+        //                             dockerImage.push()
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Monolithic task'){
+        //     when{
+        //         changeset "monolithic-app/*"
+        //     }
+        //     steps{
+        //         dir("monolithic-app"){
+        //             sh "bash sshlogin.sh"
+        //         }
+        //     }
+        // }
     }
 }
