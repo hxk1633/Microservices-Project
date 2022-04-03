@@ -1,34 +1,4 @@
 def obtainChanges(){
-    def arr = env.modifiedFiles.split('\n')
-    result = ''
-    def tempResult = '';
-    def folders = '';
-    for(int i = 0; i < arr.length;i++){
-        def file = arr[i]
-        if(file.startsWith('microservices/services/')){
-            result = "${result}${file},"
-        }
-    }
-    def arr_comma = result.split(",")
-    for (int j = 0; j < arr_comma.length; j++) {
-            def folderDirectory = arr_comma[j].split('/')
-            for(int z = 0; z < folderDirectory.length; z++){
-            if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
-                tempResult = "${tempResult}${folderDirectory[z+1]} "
-                break
-            }
-        }
-    }
-
-    def resultS = tempResult.tokenize(' ')
-    resultS = resultS.unique()
-    for(int i = 0; i < resultS.size(); i++){
-        folders="${folders}${resultS[i]},"
-    }
-    echo "modified: ${folders}"
-    env.folders =  "${folders}"
-
-
     def arr_new = env.addFiles.split('\n')
     result_new = ''
     def tempResult_new = '';
@@ -57,6 +27,34 @@ def obtainChanges(){
     }
     echo "new: ${folders_new}"
     env.folders_new =  "${folders_new}"
+    def arr = env.modifiedFiles.split('\n')
+    result = ''
+    def tempResult = '';
+    def folders = '';
+    for(int i = 0; i < arr.length;i++){
+        def file = arr[i]
+        if(file.startsWith('microservices/services/')){
+            result = "${result}${file},"
+        }
+    }
+    def arr_comma = result.split(",")
+    for (int j = 0; j < arr_comma.length; j++) {
+            def folderDirectory = arr_comma[j].split('/')
+            for(int z = 0; z < folderDirectory.length; z++){
+            if(folderDirectory[z] == "services" && z+1 < folderDirectory.length && folderDirectory[z+1] != ".DS_Store"){
+                tempResult = "${tempResult}${folderDirectory[z+1]} "
+                break
+            }
+        }
+    }
+
+    def resultS = tempResult.tokenize(' ')
+    resultS = resultS.unique()
+    for(int i = 0; i < resultS.size(); i++){
+        folders="${folders}${resultS[i]},"
+    }
+    echo "modified: ${folders}"
+    env.folders =  "${folders}"
 }
 
 pipeline{
@@ -161,30 +159,30 @@ pipeline{
                 }
             }
         }
-        // stage('Monolithic detect changes, build ,and push images'){
-        //     when{
-        //         changeset "monolithic-app/*"
-        //     }
-        //     steps{
-        //         script{
-        //             dir("monolithic-app"){
-        //                 dockerImage = docker.build registry_mono
-        //                 docker.withRegistry('', registryCredential){
-        //                             dockerImage.push()
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Monolithic task'){
-        //     when{
-        //         changeset "monolithic-app/*"
-        //     }
-        //     steps{
-        //         dir("monolithic-app"){
-        //             sh "bash sshlogin.sh"
-        //         }
-        //     }
-        // }
+        stage('Monolithic detect changes, build ,and push images'){
+            when{
+                changeset "monolithic-app/*"
+            }
+            steps{
+                script{
+                    dir("monolithic-app"){
+                        dockerImage = docker.build registry_mono
+                        docker.withRegistry('', registryCredential){
+                                    dockerImage.push()
+                        }
+                    }
+                }
+            }
+        }
+        stage('Monolithic task'){
+            when{
+                changeset "monolithic-app/*"
+            }
+            steps{
+                dir("monolithic-app"){
+                    sh "bash sshlogin.sh"
+                }
+            }
+        }
     }
 }
