@@ -88,81 +88,72 @@ pipeline{
                 obtainChanges()
             }
         }
-        // stage('Microservice Build and upload Docker image(modified)'){
-        //     steps{
-        //         script{
-        //             if(env.folders != ''){
-        //                 try{
-        //                     def arr = env.folders.split(',')
-        //                     for(int i = 0; i <arr.length; i++){
-        //                         dir("${directory}${arr[i]}"){
-        //                             dockerName = "${registry}${arr[i]}_microservice"
-        //                             dockerImage = docker.build dockerName
-        //                             docker.withRegistry('', registryCredential){
-        //                                 dockerImage.push()
-        //                             }
-        //                         }
-        //                     }
-        //                 }catch(Exception e){
-        //                     echo "Microservice Build and upload Docker image(modified) failed"
-        //                     currentBuild.result = 'FAILURE'
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage('Microservice Build and upload Docker image(add)'){
-        //     steps{
-        //         script{
-        //             if(env.folders_new != ''){
-        //                 try{
-        //                     def arr_new = env.folders_new.split(',')
-        //                     for(int i = 0; i <arr_new.length; i++){
-        //                         dir("${directory}${arr_new[i]}"){
-        //                             echo arr_new[i]
-        //                             dockerName = "${registry}${arr_new[i]}_microservice"
-        //                             dockerImage = docker.build dockerName
-        //                             docker.withRegistry('', registryCredential){
-        //                                 dockerImage.push()
-        //                                 }
-        //                             }
-        //                         }
-        //                 } catch(Exception e){
-        //                     echo "Microservice Build and upload Docker image(add) failed"
-        //                     currentBuild.result = 'FAILURE'
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Microservice task (modified)'){
-        //     steps{
-        //         script{
-        //             try{
-        //                 if(env.folders != '' ){
-        //                     dir("./microservices"){
-        //                         flag = "edit"
-        //                         sh "bash helper.sh ${env.folders} ${flag}" 
-        //                     }
-        //                 }
-        //             }catch(Exception e){
-        //                     echo "Microservice task (modified) failed"
-        //                     currentBuild.result = 'FAILURE'
-        //             }
-        //         }
-        //     }
-        // }
-
-        stage('Start Service'){
+        stage('Microservice Build and upload Docker image(modified)'){
             steps{
                 script{
-                    dir("./microservices"){
-                        sh 'docker-compose up -d --scale users=4 --scale comments=4 --scale posts=4 --scale threads=4'
+                    if(env.folders != ''){
+                        try{
+                            def arr = env.folders.split(',')
+                            for(int i = 0; i <arr.length; i++){
+                                dir("${directory}${arr[i]}"){
+                                    dockerName = "${registry}${arr[i]}_microservice"
+                                    dockerImage = docker.build dockerName
+                                    docker.withRegistry('', registryCredential){
+                                        dockerImage.push()
+                                    }
+                                }
+                            }
+                        }catch(Exception e){
+                            echo "Microservice Build and upload Docker image(modified) failed"
+                            currentBuild.result = 'FAILURE'
+                        }
                     }
                 }
             }
         }
+
+        stage('Microservice Build and upload Docker image(add)'){
+            steps{
+                script{
+                    if(env.folders_new != ''){
+                        try{
+                            def arr_new = env.folders_new.split(',')
+                            for(int i = 0; i <arr_new.length; i++){
+                                dir("${directory}${arr_new[i]}"){
+                                    echo arr_new[i]
+                                    dockerName = "${registry}${arr_new[i]}_microservice"
+                                    dockerImage = docker.build dockerName
+                                    docker.withRegistry('', registryCredential){
+                                        dockerImage.push()
+                                        }
+                                    }
+                                }
+                        } catch(Exception e){
+                            echo "Microservice Build and upload Docker image(add) failed"
+                            currentBuild.result = 'FAILURE'
+                        }
+                    }
+                }
+            }
+        }
+        stage('Microservice task (modified)'){
+            steps{
+                script{
+                    try{
+                        if(env.folders != '' ){
+                            dir("./microservices"){
+                                flag = "edit"
+                                sh "bash helper.sh ${env.folders} ${flag}" 
+                            }
+                        }
+                    }catch(Exception e){
+                            echo "Microservice task (modified) failed"
+                            currentBuild.result = 'FAILURE'
+                    }
+                }
+            }
+        }
+
         stage('Microservice task (add)'){
             steps{
                 script{
