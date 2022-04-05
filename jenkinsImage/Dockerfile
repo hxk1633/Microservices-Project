@@ -8,5 +8,6 @@ RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 COPY config.xml /usr/share/jenkins/ref/jobs/jenkinsMicro/config.xml
+COPY credentials.xml /var/jenkins_home/credentials.xml
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 COPY casc.yaml /var/jenkins_home/casc.yaml
