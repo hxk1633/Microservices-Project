@@ -40,26 +40,10 @@ services:
       retries: 5
       start_period: 20s
       timeout: 10s
-  newservice8:
-    image: jh7939/microservices:newservice8_microservice
+  newservice5:
+    image: jh7939/microservices:newservice5_microservice
     healthcheck:
-      test: curl --fail http://localhost/api/newservice8%7C%7C exit 1
-      interval: 60s
-      retries: 5
-      start_period: 20s
-      timeout: 10s
-  newservice9:
-    image: jh7939/microservices:newservice9_microservice
-    healthcheck:
-      test: curl --fail http://localhost/api/newservice9%7C%7C exit 1
-      interval: 60s
-      retries: 5
-      start_period: 20s
-      timeout: 10s
-  newservice10:
-    image: jh7939/microservices:newservice10_microservice
-    healthcheck:
-      test: curl --fail http://localhost/api/newservice10%7C%7C exit 1
+      test: curl --fail http://localhost/api/newservice5%7C%7C exit 1
       interval: 60s
       retries: 5
       start_period: 20s
