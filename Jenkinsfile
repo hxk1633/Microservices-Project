@@ -91,7 +91,6 @@ pipeline{
         stage('Microservice Build and upload Docker image(modified)'){
             steps{
                 script{
-                    sh 'docker'
                     if(env.folders != ''){
                         try{
                             def arr = env.folders.split(',')
@@ -116,7 +115,6 @@ pipeline{
         stage('Microservice Build and upload Docker image(add)'){
             steps{
                 script{
-                    sh 'docker'
                     if(env.folders_new != ''){
                         try{
                             def arr_new = env.folders_new.split(',')
