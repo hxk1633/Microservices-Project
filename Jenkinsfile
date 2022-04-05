@@ -143,7 +143,7 @@ pipeline{
                         if(env.folders != '' ){
                             dir("./microservices"){
                                 flag = "edit"
-                                sh "bash sshlogin.sh ${env.folders} ${flag}" 
+                                sh "bash helper.sh ${env.folders} ${flag}" 
                             }
                         }
                     }catch(Exception e){
@@ -153,6 +153,7 @@ pipeline{
                 }
             }
         }
+
         stage('Microservice task (add)'){
             steps{
                 script{
@@ -160,7 +161,7 @@ pipeline{
                         if(env.folders_new != ''){
                             dir("./microservices"){
                                 flag_new = "new"
-                                sh "bash sshlogin.sh ${env.folders_new} ${flag_new}" 
+                                sh "bash helper.sh ${env.folders_new} ${flag_new}" 
                             }
                         }
                     }catch(Exception e){
