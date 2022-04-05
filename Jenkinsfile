@@ -137,15 +137,24 @@ pipeline{
         //     }
         // }
 
-        stage('Docker-compose up'){
+        // stage('Docker-compose up'){
+        //     steps{
+        //         script{
+        //             dir("./microservices"){
+        //                 sh 'docker'
+
+        //                 sh '/usr/local/bin/docker-compose up -d --scale users=4 --scale comments=4 --scale posts=4 --scale threads=4'
+
+        //                 sh 'docker ps'
+        //             }
+        //         }
+        //     }
+        // }
+        stage('Swap'){
             steps{
                 script{
                     dir("./microservices"){
-                        sh 'docker'
-                        
-                        sh '/usr/local/bin/docker-compose up -d --scale users=4 --scale comments=4 --scale posts=4 --scale threads=4'
-
-                        sh 'docker ps'
+                        sh "bash update_containers.sh posts 4"
                     }
                 }
             }
