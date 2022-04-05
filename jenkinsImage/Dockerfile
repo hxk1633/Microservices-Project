@@ -10,6 +10,8 @@ RUN apt-get update && apt-get -y install sudo
 RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 RUN chmod +x /usr/local/bin/docker-compose
 
+RUN curl -L -o /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 COPY config.xml /usr/share/jenkins/ref/jobs/jenkinsMicro/config.xml
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
