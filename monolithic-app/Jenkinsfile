@@ -205,7 +205,7 @@ pipeline{
                 script{
                     try{
                         dir("monolithic-app"){
-                            sh "bash update_containers.sh monolithic 4"
+                            sh "bash update_containers.sh monolith 4"
                         }
                     }catch(Exception e){
                         echo "Monolithic task failed"
