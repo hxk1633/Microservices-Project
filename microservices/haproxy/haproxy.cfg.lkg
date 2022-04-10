@@ -29,11 +29,17 @@ cache mycache
 
 frontend api_gateway
   bind :80
+  acl PATH_newservice4 path_beg -i /api/newservice4
+  acl PATH_newservice2 path_beg -i /api/newservice2
+  acl PATH_newservice3 path_beg -i /api/newservice3
   acl PATH_newservice2 path_beg -i /api/newservice2
   acl PATH_comments path_beg -i /api/comments
   acl PATH_users path_beg -i /api/users
   acl PATH_posts path_beg -i /api/posts
   acl PATH_threads path_beg -i /api/threads
+  use_backend be_newservice4 if PATH_newservice4
+  use_backend be_newservice2 if PATH_newservice2
+  use_backend be_newservice3 if PATH_newservice3
   use_backend be_newservice2 if PATH_newservice2
   use_backend be_users if PATH_users
   use_backend be_comments if PATH_comments
@@ -55,6 +61,14 @@ backend be_comments
 backend be_newservice2
   balance roundrobin
   server-template microservices-newservice2- 20 newservice2:3000 check init-addr libc,none resolvers docker
+
+backend be_newservice3
+  balance roundrobin
+  server-template microservices-newservice3- 20 newservice3:3000 check init-addr libc,none resolvers docker
+
+backend be_newservice4
+  balance roundrobin
+  server-template microservices-newservice4- 20 newservice4:3000 check init-addr libc,none resolvers docker
 
 backend be_posts
   balance roundrobin
