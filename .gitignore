@@ -2,3 +2,5 @@
 microservices/haproxy/haproxy.cfg
 microservices/haproxy/haproxy.cfg.lkg
 microservices/haproxy/haproxy.cfg.lkg
+microservices/haproxy/haproxy.cfg
+microservices/haproxy/haproxy.cfg.lkg
