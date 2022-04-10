@@ -61,25 +61,4 @@ app.get('/api/comments/in-post/:postId', function(req, res){
     res.send(db.comments.find((comment) => comment.post == id));
 });
 
-
-app.get('/api/newservice', function(req, res){
-    res.send(db.newservice);
- });
-
-app.get('/api/newservice2', function(req, res){
-    res.send(db.newservice2);
- });
-
-app.get('/api/newservice3', function(req, res){
-    res.send(db.newservice3);
-});
-
-app.get('/api/newservice4', function(req, res){
-    res.send(db.newservice4);
-});
-
-app.get('/api/newservice5', function(req, res){
-    res.send(db.newservice5);
-});
-
 app.listen(3000);
