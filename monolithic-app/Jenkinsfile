@@ -70,6 +70,12 @@ pipeline{
     }
     
     stages{
+
+        stage("Initialization") {
+            steps {
+                buildName "${BUILD_NAME}"
+            }
+        }
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
@@ -191,7 +197,7 @@ pipeline{
                 }
             }
         }
-        stage('Monolithic task'){
+        stage('Monolithic task add new/modified service'){
             when{
                 changeset "monolithic-app/*"
             }
@@ -199,7 +205,7 @@ pipeline{
                 script{
                     try{
                         dir("monolithic-app"){
-                        sh "bash sshlogin.sh"
+                        sh "bash helper.sh"
                         }
                     }catch(Exception e){
                         echo "Monolithic task failed"
