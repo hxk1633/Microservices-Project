@@ -183,7 +183,6 @@ pipeline{
                     if("${NEW_SERVICE}" != ''){
                         try{
                             dir("${directory}${NEW_SERVICE}"){
-                                echo arr_new[i]
                                 dockerName = "${registry}${NEW_SERVICE}_microservice"
                                 dockerImage = docker.build dockerName
                                 docker.withRegistry('', registryCredential){
@@ -205,7 +204,6 @@ pipeline{
                     if("${MODIFIED_SERVICE}" != ''){
                         try{
                             dir("${directory}${MODIFIED_SERVICE}"){
-                                echo arr_new[i]
                                 dockerName = "${registry}${MODIFIED_SERVICE}_microservice"
                                 dockerImage = docker.build dockerName
                                 docker.withRegistry('', registryCredential){
