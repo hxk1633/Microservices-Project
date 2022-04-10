@@ -74,4 +74,8 @@ app.get('/api/newservice3', function(req, res){
     res.send(db.newservice3);
 });
 
+app.get('/api/newservice4', function(req, res){
+    res.send(db.newservice4);
+});
+
 app.listen(3000);
