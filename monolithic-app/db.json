@@ -1,4 +1,16 @@
 {
+  "newservice": [
+    {
+      "id": 11,
+      "name": "NewService1",
+      "description": "I am a new service."
+    },
+    {
+      "id": 999,
+      "name": "NewService2",
+      "description": "I am a new service too."
+    }
+  ],
   "users": [
     {
       "id": 0,
