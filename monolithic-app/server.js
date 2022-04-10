@@ -65,12 +65,4 @@ app.get('/api/newservice', function(req, res){
     res.send(db.newservice);
  });
 
- app.get('/api/newservice2', function(req, res){
-    res.send(db.newservice2);
- });
-
- app.get('/api/newservice3', function(req, res){
-    res.send(db.newservice3);
- });
-
 app.listen(3000);
