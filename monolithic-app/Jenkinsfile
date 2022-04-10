@@ -205,7 +205,7 @@ pipeline{
                 script{
                     try{
                         dir("monolithic-app"){
-                        sh "bash sshlogin.sh"
+                        sh "bash helper.sh"
                         }
                     }catch(Exception e){
                         echo "Monolithic task failed"
