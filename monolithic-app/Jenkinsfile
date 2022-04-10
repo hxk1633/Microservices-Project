@@ -81,19 +81,19 @@ pipeline{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hxk1633/Microservices-Project']]])
             }
         }
-        // stage('Microservice detect change'){
-        //     steps{
-        //         script{
-        //             env.addFiles = sh (
-        //                 script: 'git diff --diff-filter=A --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
-        //                 returnStdout: true).trim()
-        //             env.modifiedFiles = sh (
-        //                 script: 'git diff --diff-filter=M --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
-        //                 returnStdout: true).trim()
-        //         }
-        //         obtainChanges()
-        //     }
-        // }
+        stage('Monolithic detect change'){
+            steps{
+                script{
+                    env.addFiles = sh (
+                        script: 'git diff --diff-filter=AM --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
+                        returnStdout: true).trim()
+                    // env.modifiedFiles = sh (
+                    //     script: 'git diff --diff-filter=M --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ',
+                    //     returnStdout: true).trim()
+                }
+                obtainChanges()
+            }
+        }
         // stage('Microservice Build and upload Docker image(modified)'){
         //     steps{
         //         script{
