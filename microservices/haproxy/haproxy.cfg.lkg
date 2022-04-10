@@ -1,5 +1,5 @@
-# _md5hash=77817e1fc1f0c5c9a3dba8d0f7a7f2af
-# _version=78
+# _md5hash=4f4ecf42498e718ba191a1b729e2179f
+# _version=76
 # Dataplaneapi managed File
 # changing file directly can cause a conflict if dataplaneapi is running
 
@@ -21,6 +21,11 @@ userlist haproxy-dataplaneapi
 
 resolvers docker
   nameserver dns1 127.0.0.11:53
+
+cache mycache
+  total-max-size 4095 # MB
+  max-object-size 10000 # bytes
+  max-age 30 # seconds
 
 frontend api_gateway
   bind :80
@@ -49,6 +54,8 @@ frontend stats
 
 backend be_comments
   balance roundrobin
+  http-request cache-use mycache
+  http-response cache-store mycache
   server-template microservices-comments- 20 comments:3000 check resolvers docker init-addr libc,none
 
 backend be_newservice2
@@ -65,14 +72,20 @@ backend be_newservice4
 
 backend be_posts
   balance roundrobin
+  http-request cache-use mycache
+  http-response cache-store mycache
   server-template microservices-posts- 20 posts:3000 check resolvers docker init-addr libc,none
 
 backend be_threads
   balance roundrobin
+  http-request cache-use mycache
+  http-response cache-store mycache
   server-template microservices-threads- 20 threads:3000 check resolvers docker init-addr libc,none
 
 backend be_users
   balance roundrobin
+  http-request cache-use mycache
+  http-response cache-store mycache
   server-template microservices-users- 20 users:3000 check resolvers docker init-addr libc,none
 
 program api
