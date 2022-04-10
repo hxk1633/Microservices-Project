@@ -234,7 +234,7 @@ pipeline{
         }
 
         stage('Microservice task (modified)'){
-            // steps{
+            steps{
                 script{
                     try{
                         if("${MODIFIED_SERVICE}" != '' ){
@@ -249,7 +249,7 @@ pipeline{
                             currentBuild.result = 'FAILURE'
                     }
                 }
-            // }
+            }
         }
 
         stage('Microservice task (add)'){
