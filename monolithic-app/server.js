@@ -59,4 +59,8 @@ app.get('/api/newservice', function(req, res){
  });
 
  
+ app.get('/api/newservice', function(req, res){
+    res.send(db.newservice2);
+ });
+
 app.listen(3000);
