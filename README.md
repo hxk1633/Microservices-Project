@@ -22,11 +22,11 @@
 
 ## Build Jenkins Image and run Jenkins Image
 `cd jenkinsImage`
-`docker build -t jenkins:jcasc .'
+`docker build -t jenkins:jcasc .`
 `docker run --name jenkins --rm -p 8080:8080 --network microservices_my-network -v /var/run/docker.sock:/var/run/docker.sock jenkins:jcasc`
 
 ## Go to port 8080 for Jenkins service
-'localhost:8080'
+`localhost:8080`
 
 ## Start pipieline
 There are two pipelines set up on DashBoard. 'jenkinsMicro' is for microservices application 
