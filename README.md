@@ -10,6 +10,16 @@
 ## Stop Microservices
 `docker-compose down`
 
+## Start Monolith
+`cd monolithic-app`
+`docker-compose up -d`
+
+## Scale Monolith
+`docker-compose up -d --scale monolith=4`
+
+## Stop Monolith
+`docker-compose down`
+
 ## Build Jenkins Image and run Jenkins Image
 `cd jenkinsImage`
 `docker build -t jenkins:jcasc .'
